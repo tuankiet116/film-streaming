@@ -1,0 +1,25 @@
+{
+  "name": "film-streaming",
+  "version": "1.0.0",
+  "description": "This is project to learning about stream feature of Nodejs. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuankiet116/Nodejs-Film-Stream.git"
+  },
+  "author": "tuankiet116",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tuankiet116/Nodejs-Film-Stream/issues"
+  },
+  "homepage": "https://github.com/tuankiet116/Nodejs-Film-Stream#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
