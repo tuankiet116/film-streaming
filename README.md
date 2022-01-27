@@ -1,7 +1,7 @@
 # film-streaming
 
 + Tạo file .env:
-  - Exaple:  
+  - Example:  
   ```
   PORT=9096
   HTTP_CORS=*
