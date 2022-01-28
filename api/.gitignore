@@ -1,0 +1,10 @@
+# Dependency directories
+node_modules/
+
+data/sources/
+
+data/actors/
+
+data/profiles/
+
+.env
