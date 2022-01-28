@@ -2,7 +2,7 @@ const { response } = require('express')
 
 module.exports.ApiResponse = (data, code, _response = null, status = null) => {
     let res = _response
-    if (_response == null){
+    if (_response == null) {
         res = response
     }
 
