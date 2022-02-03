@@ -1,28 +1,22 @@
 <template>
   <div id="register">
-    <div id="login">
-        <div class="dark-bg"></div>
+    <div class="dark-bg"></div>
 
-        <img class="login-logo" src="../assets/images/movie-logo-2-new.png" alt="website logo">
-    
-        <div class="login-container">
-            <div class="login-content">
-                <h1> {{ msg }} </h1>
-                <input type="text" placeholder="Email hoặc số điện thoại">
-                <input type="password" placeholder="Mật khẩu">
-                <input type="password" placeholder="Nhập lại mật khẩu">
-                <input type="text" placeholder="Email">
-                <input type="text" placeholder="Địa chỉ">
-                <input type="text" placeholder="Số điện thoại">
-                <button type="button"> {{ msg }} </button>
-                <div class="remember-me">
-                <input type="checkbox">
-                <p> Ghi nhớ tôi </p>
-                </div>
-                <div class="sign-up">
-                <p>Bạn đã có tài khoản?</p>
-                <a href="#" target="_self"> Đăng nhập ngay </a>
-                </div>
+    <img class="register-logo" src="../assets/images/movie-logo-2-new.png" alt="website logo">
+
+    <div class="register-container">
+        <div class="register-content">
+            <h1> {{ msg }} </h1>
+            <input type="text" v-model="register_user" placeholder="Tên đăng nhập">
+            <input type="password" v-model="register_password" placeholder="Mật khẩu">
+            <input type="password" v-model="register_password_repeat" placeholder="Nhập lại mật khẩu">
+            <input type="text" v-model="register_email" placeholder="Email">
+            <input type="text" v-model="register_address" placeholder="Địa chỉ">
+            <input type="text" v-model="register_phone" placeholder="Số điện thoại">
+            <button id="register_button" type="button" @click="handleSubmit()"> {{ msg }} </button>
+            <div class="sign-up">
+              <p>Bạn đã có tài khoản?</p>
+              <router-link :to="{ name: 'Login' }"> Đăng nhập ngay </router-link>
             </div>
         </div>
     </div>
@@ -31,16 +25,28 @@
 
 <script>
 export default {
-  name: 'register',
   data () {
     return {
-      msg: 'Đăng ký'
+      msg: 'Đăng ký',
+      register_user: '',
+      register_password: '',
+      register_password_repeat: '',
+      register_email: '',
+      register_address: '',
+      register_phone: '',
     }
+  },
+  metaInfo() {
+    return {
+      title: 'Đăng ký | Xem phim trực tuyến'
+    }
+  },
+  methods: {
+
   }
 }
 </script>
 
 <style>
-@import '../assets/css/style.css';
 
 </style>
