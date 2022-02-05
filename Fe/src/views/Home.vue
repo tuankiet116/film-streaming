@@ -81,7 +81,7 @@ export default {
     }
 
     #home .slick-img img {
-      width: 100%;
+      min-width: 100%;
       height: 100%;
     }
   }

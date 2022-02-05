@@ -140,4 +140,24 @@ export default {
       right: 70px;
     }
   }
+
+  @media screen and (max-width: 996px) {
+    /* #header .header-color {
+      background-color: rgb(30, 30, 30);
+      height: 80px;
+    } */
+
+    #header .header-items {
+      padding-left: 10px;
+      background-color: rgba(30, 30, 30, 0.5);
+    }
+
+    #header .header-items .header-search-form input[type=text] {
+      width: 86%;
+    }
+
+    #header .header-items .header-search-form .header-search-btn {
+      right: 10px;
+    }
+  }
 </style>
