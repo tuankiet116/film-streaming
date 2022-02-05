@@ -7,39 +7,27 @@
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-      
-    }
-  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .slick-prev {
+    left: 5% !important;
+    z-index: 1000 !important;
+  }
 
-h1, h2 {
-  font-weight: normal;
-}
+  .slick-next {
+    right: 5% !important;
+    z-index: 1000 !important;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  .dropdown-toggle::after {
+    margin-left: 2.3em !important;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  @media screen and (min-width: 996px) {
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+      right: 0 !important;
+    }
+  }
 </style>
