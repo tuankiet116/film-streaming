@@ -1,0 +1,157 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+/********** LOGIN & REGISTER **********/
+
+#login,
+#register {
+    background-image: url(../images/movies-bg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    z-index: -1;
+    /* position: fixed; */
+}
+
+#login .dark-bg,
+#register .dark-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+#login .login-logo,
+#register .register-logo {
+    position: absolute;
+    top: 3%;
+    left: 2%;
+    width: 120px;
+    height: 120px;
+    z-index: 1000;
+}
+
+#login .login-container,
+#register .register-container {
+   width: 400px;
+   height: auto;
+   margin: 0 auto;
+   padding-top: 50px;
+   padding-bottom: 50px;
+   z-index: 1000;
+   position: relative;
+}
+
+#login .login-container .login-content,
+#register .register-container .register-content {
+   font-family: 'Roboto', Arial;
+   border-radius: 3px;
+   background-color: rgba(0, 0, 0, 0.8);
+   padding: 50px;
+   z-index: 1000;
+}
+
+#login .login-container .login-content h1,
+#register .register-container .register-content h1 {
+   font-size: 25px;
+   font-weight: bold;
+   color: white;
+   margin-bottom: 35px;
+}
+
+#login .login-container .login-content input[type=text],
+#login .login-container .login-content input[type=password],
+#register .register-container .register-content input[type=text],
+#register .register-container .register-content input[type=password] {
+   font-size: 15px;
+   width: 100%;
+   height: 3.4rem;
+   border-radius: 3px;
+   border: none !important;
+   background-color: rgb(51, 51, 51);
+   margin-bottom: 12px;
+   outline: none;
+   color: white;
+   padding-left: 20px; 
+}
+
+#login .login-container .login-content button,
+#register .register-container .register-content button {
+   font-size: 15px;
+   font-weight: bold;
+   width: 100%;
+   height: 3.4rem;
+   border-radius: 3px;
+   border: none !important;
+   background-color: rgb(229, 9, 21);
+   margin-bottom: 18px;
+   margin-top: 25px;
+   outline: none;
+   color: white;
+   cursor: pointer;
+   transition: .3s;
+}
+
+#login .login-container .login-content button:hover,
+#register .register-container .register-content button:hover {
+   background-color: rgb(212, 39, 47);
+   transition: .3s;
+}
+
+#login .login-container .login-content .remember-me p {
+   color: rgb(103, 103, 103);
+   font-size: 15px;
+   padding-left: 25px;
+}
+
+#login .login-container .login-content .remember-me input[type=checkbox] {
+   width: 17px;
+   height: 17px;
+   float: left;
+}
+
+#login .login-container .login-content .sign-up,
+#register .register-container .register-content .sign-up {
+   margin-top: 30px;
+}
+
+#login .login-container .login-content .sign-up p,
+#register .register-container .register-content .sign-up p {
+   color: rgb(103, 103, 103);
+   font-size: 15px;
+   font-weight: bold;
+   display: inline;
+}
+
+#login .login-container .login-content .sign-up a,
+#register .register-container .register-content .sign-up a {
+   color: white;
+   font-size: 15px;
+   font-weight: bold;
+   text-decoration: none;
+}
+
+
+
+/********** RESPONSIVE **********/
+
+/***** IPHONE 6/7/8 *****/
+
+@media screen and (max-width: 400px) {
+
+   /***** LOGIN & REGISTER *****/
+
+   /* #login .login-container,
+   #register .register-container {
+      width: 600px;
+   } */
+}
