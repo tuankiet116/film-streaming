@@ -1,9 +1,10 @@
 const express = require('express')
-const cors = require('../configs/cors.config')
 const router = express.Router()
 
-let filmsRouters = require('./filmsRouter')
+let FilmsRouters = require('./FilmsRouter')
+let UserRouter = require('./UserRouter')
 
-router.use('/films', cors, filmsRouters)
+router.use('/films', FilmsRouters)
+router.use('/auth', UserRouter)
 
 module.exports = router

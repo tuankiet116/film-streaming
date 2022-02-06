@@ -1,5 +1,4 @@
-const express = require('express')
-const filmService = require('../services/filmService')
+const filmService = require('../services/FilmService')
 const resHelper = require('../helpers/response')
 const responseCode = require('../constant/responseConstant')
 const filmController = {}

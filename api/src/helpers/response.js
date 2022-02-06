@@ -11,5 +11,5 @@ module.exports.ApiResponse = (data, code, _response = null, status = null) => {
         data: data
     }
 
-    return res.status(status ? status : code).json(dataResponse)
+    return res.status(status ? status : code).json(dataResponse).end()
 }
