@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import VueSlickCarousel from "vue-slick-carousel";
 import './assets/css/style.css'
-import HeaderNavbar from './modules/components/Header.vue'
+import HeaderNavbar from './components/Header.vue'
 
 // BootstrapVue
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";

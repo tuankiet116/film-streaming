@@ -21,8 +21,16 @@ export default {
     z-index: 1000 !important;
   }
 
-  .dropdown-toggle::after {
+  .header-user .dropdown-toggle::after {
     margin-left: 2.3em !important;
+  }
+
+  #header .header-items span {
+    color: white !important;
+  }
+  
+  .slick-prev:before, .slick-next:before {
+    font-size: 40px !important;
   }
 
   @media screen and (min-width: 996px) {
