@@ -69,14 +69,14 @@
     },
     {
       "slickId": 2,
-      "slickSrc": "require('../assets/images/suicide-squad-2.jpg')",
+      "slickSrc": "../assets/images/suicide-squad-2.jpg",
       "slickAlt": "Slider 2",
       "slickTitle": "Người Nhện: Không Còn Nhà",
       "slickDes": "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới"
     },
     {
       "slickId": 3,
-      "slickSrc": "require('../assets/images/venom-2.jpg')",
+      "slickSrc": "../assets/images/venom-2.jpg",
       "slickAlt": "Slider 3",
       "slickTitle": "Người Nhện: Không Còn Nhà",
       "slickDes": "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới"

@@ -9,8 +9,8 @@
             alt="footer logo"
           />
           <p class="footer-intro">
-            Xem phim m?i mi?n phí nhanh ch?t lu?ng cao. Xem phim online Vi?t
-            Sub, Thuy?t minh, l?ng ti?ng ch?t lu?ng HD.
+            Xem phim mới miễn phí nhanh chất lượng cao. Xem phim online Viet
+            Sub, Thuyết minh, lồng tiếng chất lượng HD.
           </p>
         </b-col>
 
@@ -38,14 +38,14 @@
           <div class="footer-contact">
             <b-icon icon="telephone-fill" class="footer-contact-icon"></b-icon>
             <div class="footer-contact-info">
-              <p>S? di?n tho?i:</p>
+              <p>Số điện thoại:</p>
               <p>035.955.9225</p>
             </div>
           </div>
           <div class="footer-contact">
             <b-icon icon="envelope-fill" class="footer-contact-icon"></b-icon>
             <div class="footer-contact-info">
-              <p>Email liên h?:</p>
+              <p>Email liên hệ:</p>
               <p>doanphilong2k@gmail.com</p>
             </div>
           </div>
@@ -56,48 +56,22 @@
 </template>
 
 <script>
+import EventService from '../services/EventService.js'
+
 export default {
   data() {
     return {
-      footerMenu: [
-        {
-          footerId: 1,
-          footerTitle: "Phim m?i",
-          footerItems: [
-            {
-              footerItemId: 1,
-              footerItemTitle: "Phim l? m?i"
-            },
-            {
-              footerItemId: 2,
-              footerItemTitle: "Phim b? m?i"
-            },
-            {
-              footerItemId: 3,
-              footerItemTitle: "Phim s?p chi?u"
-            }
-          ]
-        },
-        {
-          footerId: 2,
-          footerTitle: "Phim l?",
-          footerItems: [
-            {
-              footerItemId: 1,
-              footerItemTitle: "Phim l? m?i"
-            },
-            {
-              footerItemId: 2,
-              footerItemTitle: "Phim b? m?i"
-            },
-            {
-              footerItemId: 3,
-              footerItemTitle: "Phim s?p chi?u"
-            }
-          ]
-        }
-      ]
+      footerMenu: []
     };
+  },
+  created() {
+    EventService.getFooter()
+      .then(response => {
+        this.footerMenu = response.data
+      })
+      .catch(error => {
+        console.log('There was an error:' + error.response)
+      });
   }
 };
 </script>
