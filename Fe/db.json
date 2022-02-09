@@ -2,59 +2,59 @@
   "menu": [
     {
       "menuId": 1,
-      "menuTitle": "phim m?i",
+      "menuTitle": "phim mới",
       "menuLink": "/list/phim-moi"
     },
     {
       "menuId": 2,
-      "menuTitle": "phim l?",
+      "menuTitle": "phim lẻ",
       "menuLink": "/list/phim-le"
     },
     {
       "menuId": 3,
-      "menuTitle": "phim b?",
+      "menuTitle": "phim bộ",
       "menuLink": "/list/phim-bo"
     },
     {
       "menuId": 4,
-      "menuTitle": "th? lo?i",
+      "menuTitle": "thể loại",
       "menuLink": "#"
     }
   ],
   "footerMenu": [
     {
       "footerId": 1,
-      "footerTitle": "Phim m?i",
+      "footerTitle": "phim mới",
       "footerItems": [
         {
           "footerItemId": 1,
-          "footerItemTitle": "Phim l? m?i"
+          "footerItemTitle": "phim lẻ mới"
         },
         {
           "footerItemId": 2,
-          "footerItemTitle": "Phim b? m?i"
+          "footerItemTitle": "phim bộ mới"
         },
         {
           "footerItemId": 3,
-          "footerItemTitle": "Phim s?p chi?u"
+          "footerItemTitle": "Phim sắp chiếu"
         }
       ]
     },
     {
       "footerId": 2,
-      "footerTitle": "Phim l?",
+      "footerTitle": "phim lẻ",
       "footerItems": [
         {
           "footerItemId": 1,
-          "footerItemTitle": "Phim l? m?i"
+          "footerItemTitle": "phim lẻ mới"
         },
         {
           "footerItemId": 2,
-          "footerItemTitle": "Phim b? m?i"
+          "footerItemTitle": "phim bộ mới"
         },
         {
           "footerItemId": 3,
-          "footerItemTitle": "Phim s?p chi?u"
+          "footerItemTitle": "Phim sắp chiếu"
         }
       ]
     }
@@ -64,52 +64,52 @@
       "slickId": 1,
       "slickSrc": "../assets/images/spider-man-nwh-2.jpg",
       "slickAlt": "Slider 1",
-      "slickTitle": "Ngu?i Nh?n: Không Còn Nhà",
-      "slickDes": "Sau khi Quentin Beck bu?c t?i Peter Parker v? t?i gi?t ngu?i và ti?t l? danh tính c?a c?u cho c? th? gi?i"
+      "slickTitle": "Người Nhện: Không Còn Nhà",
+      "slickDes": "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới"
     },
     {
       "slickId": 2,
       "slickSrc": "require('../assets/images/suicide-squad-2.jpg')",
       "slickAlt": "Slider 2",
-      "slickTitle": "Ngu?i Nh?n: Không Còn Nhà",
-      "slickDes": "Sau khi Quentin Beck bu?c t?i Peter Parker v? t?i gi?t ngu?i và ti?t l? danh tính c?a c?u cho c? th? gi?i"
+      "slickTitle": "Người Nhện: Không Còn Nhà",
+      "slickDes": "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới"
     },
     {
       "slickId": 3,
       "slickSrc": "require('../assets/images/venom-2.jpg')",
       "slickAlt": "Slider 3",
-      "slickTitle": "Ngu?i Nh?n: Không Còn Nhà",
-      "slickDes": "Sau khi Quentin Beck bu?c t?i Peter Parker v? t?i gi?t ngu?i và ti?t l? danh tính c?a c?u cho c? th? gi?i"
+      "slickTitle": "Người Nhện: Không Còn Nhà",
+      "slickDes": "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới"
     }
   ],
   "filmList": [
     {
       "listId": 1,
       "listIcon": "play-circle-fill",
-      "listTitle": "Phim m?i",
+      "listTitle": "phim mới",
       "listItems": [
         {
           "itemId": 1,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         },
         {
           "itemId": 2,
           "itemImg": "require('../assets/images/suicide-squad-2.jpg')",
-          "itemTitle": "Bi?t Ð?i C?m T? 2",
+          "itemTitle": "Biệt Đội Cảm Tử 2",
           "itemTitleEng": "Suicide squad 2"
         },
         {
           "itemId": 3,
           "itemImg": "require('../assets/images/venom-2.jpg')",
-          "itemTitle": "Venom 2: Ð?i M?t T? Thù",
+          "itemTitle": "Venom 2: Ðối Mặt Tử Thù",
           "itemTitleEng": "Venom: Let There Be Carnage"
         },
         {
           "itemId": 4,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         }
       ]
@@ -117,30 +117,30 @@
     {
       "listId": 2,
       "listIcon": "cast",
-      "listTitle": "Phim l?",
+      "listTitle": "phim lẻ",
       "listItems": [
         {
           "itemId": 1,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         },
         {
           "itemId": 2,
           "itemImg": "require('../assets/images/suicide-squad-2.jpg')",
-          "itemTitle": "Bi?t Ð?i C?m T? 2",
+          "itemTitle": "Biệt Đội Cảm Tử 2",
           "itemTitleEng": "Suicide squad 2"
         },
         {
           "itemId": 3,
           "itemImg": "require('../assets/images/venom-2.jpg')",
-          "itemTitle": "Venom 2: Ð?i M?t T? Thù",
+          "itemTitle": "Venom 2: Ðối Mặt Tử Thù",
           "itemTitleEng": "Venom: Let There Be Carnage"
         },
         {
           "itemId": 4,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         }
       ]
@@ -148,30 +148,30 @@
     {
       "listId": 3,
       "listIcon": "collection-play-fill",
-      "listTitle": "Phim b?",
+      "listTitle": "phim bộ",
       "listItems": [
         {
           "itemId": 1,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         },
         {
           "itemId": 2,
           "itemImg": "require('../assets/images/suicide-squad-2.jpg')",
-          "itemTitle": "Bi?t Ð?i C?m T? 2",
+          "itemTitle": "Biệt Đội Cảm Tử 2",
           "itemTitleEng": "Suicide squad 2"
         },
         {
           "itemId": 3,
           "itemImg": "require('../assets/images/venom-2.jpg')",
-          "itemTitle": "Venom 2: Ð?i M?t T? Thù",
+          "itemTitle": "Venom 2: Ðối Mặt Tử Thù",
           "itemTitleEng": "Venom: Let There Be Carnage"
         },
         {
           "itemId": 4,
           "itemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "itemTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "itemTitle": "Người Nhện: Không Còn Nhà",
           "itemTitleEng": "Spider-man: No Way Home"
         }
       ]
@@ -180,90 +180,90 @@
   "newFilmList": [
     {
       "newFilmId": 1,
-      "newFilmName": "Phim l? m?i",
+      "newFilmName": "phim lẻ mới",
       "newFilmItems": [
         {
           "newFilmItemId": 1,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 2,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 3,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 4,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         }
       ]
     },
     {
       "newFilmId": 2,
-      "newFilmName": "Phim b? m?i",
+      "newFilmName": "phim bộ mới",
       "newFilmItems": [
         {
           "newFilmItemId": 1,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 2,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 3,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 4,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         }
       ]
     },
     {
       "newFilmId": 3,
-      "newFilmName": "Phim s?p chi?u",
+      "newFilmName": "Phim sắp chiếu",
       "newFilmItems": [
         {
           "newFilmItemId": 1,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 2,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 3,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         },
         {
           "newFilmItemId": 4,
           "newFilmItemImg": "require('../assets/images/spider-man-nwh-2.jpg')",
-          "newFilmTitle": "Ngu?i Nh?n: Không Còn Nhà",
+          "newFilmTitle": "Người Nhện: Không Còn Nhà",
           "newFilmEng": "Spider-man: No Way Home"
         }
       ]

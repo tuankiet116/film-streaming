@@ -55,32 +55,22 @@
 </template>
 
 <script>
+import EventService from '../services/EventService.js'
+
 export default {
   data() {
     return {
-      menu: [
-        {
-          menuId: 1,
-          menuTitle: "phim mới",
-          menuLink: "#"
-        },
-        {
-          menuId: 2,
-          menuTitle: "phim lẻ",
-          menuLink: "#"
-        },
-        {
-          menuId: 3,
-          menuTitle: "phim bộ",
-          menuLink: "#"
-        },
-        {
-          menuId: 4,
-          menuTitle: "thể loại",
-          menuLink: "#"
-        }
-      ]
+      menu: []
     };
+  },
+  created() {
+    EventService.getMenu()
+      .then(response => {
+        this.menu = response.data
+      })
+      .catch(error => {
+        console.log('There was an error:' + error.response)
+      });
   }
 };
 </script>
