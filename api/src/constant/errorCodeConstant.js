@@ -18,5 +18,13 @@ module.exports = {
     EMAIL_DUPLICATE: {
         msg: "Email already exists",
         id: 5
+    },
+    RANGE_FAILED: {
+        msg: "Range is failed",
+        id: 6
+    },
+    FILM_NOT_FOUND: {
+        msg: "Film Not Found",
+        id: 7
     }
 }

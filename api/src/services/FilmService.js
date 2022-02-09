@@ -2,6 +2,7 @@ const Film = require('../models/FilmModel')
 const Type = require('../models/TypeModel')
 const { paginateStart } = require('../helpers/pagination')
 const { LIMIT, ACTIVE, INACTIVE } = require('../constant/constant')
+const StreamService = require('./Inc/Stream')
 
 let list = async (req, res) => {
     const query = req.query
@@ -65,8 +66,8 @@ let listByTypes = async (req, res) => {
 }
 
 let filmDetailInfo = async (req, res) => {
-    const query = req.query
-
+    const query = req.params
+    console.log(req.param)
     if (query.id == null || query.id == '') {
         return null
     }
