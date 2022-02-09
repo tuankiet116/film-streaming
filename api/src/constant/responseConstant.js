@@ -3,5 +3,6 @@ module.exports = {
     FAIL: 500,
     NOT_FOUND: 404,
     UNAUTHORIZED: 401,
-    REDIRECT: 301
+    REDIRECT: 301,
+    RANGE_NOT_SATISFIABLE: 416
 }
