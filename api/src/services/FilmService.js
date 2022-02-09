@@ -1,35 +1,17 @@
 const Film = require('../models/FilmModel')
 const Type = require('../models/TypeModel')
-const { paginateStart } = require('../helpers/pagination')
-const { LIMIT, ACTIVE, INACTIVE } = require('../constant/constant')
-const StreamService = require('./Inc/Stream')
+const { paginateStart, page } = require('../helpers/pagination')
+const { LIMIT, ACTIVE, INACTIVE, PAGE_DEFAULT } = require('../constant/constant')
+const { Op } = require('sequelize')
 
-let list = async (req, res) => {
-    const query = req.query
+let filmsByType = async (typeID, offset = null) => {
     let films = []
-    await Film.findAll({
-        raw: true,
-        limit: LIMIT,
-        offset: paginateStart(query.page),
-        where: {
-            active: ACTIVE
-        }
-    }).then((elements) => {
-        elements.forEach((element) => {
-            films.push(element)
-        });
-    })
-
-    return films;
-}
-
-let filmsByType = async (type, offset = null) => {
-    let films = []
-
-    await Film.findAll({
+    
+    await Film.findAndCountAll({
         raw: true,
         where: {
-            'type_id': type.id
+            'type_id': typeID,
+            'active': ACTIVE
         },
         limit: LIMIT,
         offset: paginateStart(offset),
@@ -37,19 +19,15 @@ let filmsByType = async (type, offset = null) => {
             ['createdAt', 'DESC']
         ]
     }).then((elements) => {
-        elements.forEach((element) => {
-            films.push(element)
-        });
+        films = elements
     })
 
     return films
 }
 
 let listByTypes = async (req, res) => {
-    const query = req.query
     let types = [];
 
-    Type.hasMany(Film)
     await Type.findAll({
         raw: true,
         where: {
@@ -57,7 +35,7 @@ let listByTypes = async (req, res) => {
         }
     }).then(async (elements) => {
         for (var element of elements) {
-            element.films = await filmsByType(element, query.page)
+            element.films = await filmsByType(element.id)
             types.push(element)
         }
     })
@@ -67,7 +45,7 @@ let listByTypes = async (req, res) => {
 
 let filmDetailInfo = async (req, res) => {
     const query = req.params
-    console.log(req.param)
+
     if (query.id == null || query.id == '') {
         return null
     }
@@ -82,8 +60,39 @@ let filmDetailInfo = async (req, res) => {
     return film
 }
 
+let search = async (partern, page) => {
+    page = page ? page : PAGE_DEFAULT
+    partern = partern ? partern : ""
+    let films = []
+    
+    try {
+        await Film.findAndCountAll({
+            where: {
+                name: {
+                    [Op.substring]: '%' + partern + '%'
+                },
+                active: ACTIVE
+            },
+            limit: LIMIT,
+            offset: paginateStart(page),
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        }).then(results => {
+            films = results
+        });
+    }
+    catch (err) {
+        
+        throw new Error(err.message)
+    }
+
+    return films
+}
+
 module.exports = {
-    list: list,
+    filmByType: filmsByType,
     listByType: listByTypes,
-    filmDetail: filmDetailInfo
+    filmDetail: filmDetailInfo,
+    search: search
 }
