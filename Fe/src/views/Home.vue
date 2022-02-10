@@ -183,7 +183,8 @@ export default {
 
   #home .slick-img img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   #home .slick-img .slick-info {
@@ -272,6 +273,7 @@ export default {
   #home .film-list .film-list-content .film-list-items .film-list-img img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   #home .film-list .film-list-content .film-list-items .film-list-title {
@@ -336,6 +338,7 @@ export default {
   #home .new-film-list-content .new-film-items .new-film-img img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   #home .new-film-list-content .new-film-items .new-film-info .new-film-title {
