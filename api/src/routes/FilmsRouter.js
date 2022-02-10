@@ -7,8 +7,10 @@ const FilmMiddleWare = require('../middleware/stream')
 
 router.use(cors)
 
-router.get('/list', filmController.list)
-router.get('/list-by-type', filmController.listByType)
+router.get('/films-by-type/:typeID', filmController.listByTypeID)
+
+router.get('/list', filmController.listByType)
+
 router.get('/film-information/:id',
     FilmValidator.filmDetail(),
     FilmMiddleWare,
@@ -19,6 +21,10 @@ router.get('/stream/:id',
     FilmValidator.checkStream(),
     FilmMiddleWare,
     filmController.stream
+)
+
+router.get('/search',
+    filmController.search
 )
 
 module.exports = router
