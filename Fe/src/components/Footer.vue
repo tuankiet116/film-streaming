@@ -135,7 +135,7 @@ export default {
     margin-bottom: 0;
   }
 
-  @media screen and (max-width: 756px) {
+  /* @media screen and (max-width: 756px) {
     #footer .footer-logo {
       margin-left: 27vw;
     }
@@ -166,6 +166,6 @@ export default {
     #footer .footer-list {
       left: 28%;
     }
-  }
+  } */
 
 </style>

@@ -19,13 +19,15 @@
               :key="listChild.listChildId"
             >
               <div class="list-items">
-                <div class="list-items-img">
-                  <img :src="listChild.listChildImg" alt="film image" />
-                </div>
-                <div class="list-items-info">
-                  <p class="list-items-title">{{ listChild.listChildTitle }}</p>
-                  <p class="list-items-eng">{{ listChild.listChildEng }}</p>
-                </div>
+                <router-link to="#">
+                  <div class="list-items-img">
+                    <img :src="listChild.listChildImg" alt="film image" />
+                  </div>
+                  <div class="list-items-info">
+                    <p class="list-items-title">{{ listChild.listChildTitle }}</p>
+                    <p class="list-items-eng">{{ listChild.listChildEng }}</p>
+                  </div>
+                </router-link>
               </div>
             </b-col>
           </b-row>
@@ -201,11 +203,26 @@ export default {
   height: auto;
 }
 
-#list .list-items {
+#list .list-container h1 {
+  font-family: "Roboto", Arial;
+  font-weight: bold;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: rgb(252, 226, 69);
+  margin-left: 8.5vw;
+  margin-bottom: 40px;
+  padding-top: 150px;
+}
+
+#list .list-container .list-items {
   margin-bottom: 50px;
 }
 
-#list .list-items .list-items-img {
+#list .list-container .list-items a {
+  text-decoration: none;
+}
+
+#list .list-container .list-items .list-items-img {
   width: 100%;
   height: 300px;
   overflow: hidden;
@@ -213,30 +230,34 @@ export default {
   box-shadow: 5px 5px 10px 3px rgb(30, 30, 30);
 }
 
-#list .list-items .list-items-img img {
+#list .list-container .list-items .list-items-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-#list .list-items .list-items-info {
+#list .list-container .list-items .list-items-info {
   margin-top: 15px;
 }
 
-#list .list-items .list-items-info .list-items-title {
+#list .list-container .list-items .list-items-info .list-items-title {
   font-family: "Roboto", Arial;
   font-weight: bold;
   font-size: 18px;
   color: rgb(252, 226, 69);
   text-shadow: 5px 5px 4px rgb(30, 30, 30);
   margin-bottom: 5px;
+  overflow-y: hidden;
+  height: 30px;
 }
 
-#list .list-items .list-items-info .list-items-eng {
+#list .list-container .list-items .list-items-info .list-items-eng {
   font-family: "Roboto", Arial;
   font-weight: bold;
   font-size: 14px;
   color: white;
   text-shadow: 5px 5px 4px rgb(30, 30, 30);
+  overflow-y: hidden;
+  height: 30px;
 }
 </style>
