@@ -52,6 +52,11 @@
           :is="cmp"
           :source="film.filmTrailer">
         </component>
+
+        <div v-if="comments">
+          <div class="fb-comments" id="show" data-href="http://localhost:8080/" data-width="500" data-numposts="5"></div>
+        </div>
+        <div v-else></div>
    
         <div class="film-detail-same-type">
           <p> Cùng thể loại </p>
@@ -167,12 +172,15 @@ export default {
           filmTrailer: ''
         }
       ],
-      cmp: ''
+      cmp: '',
+      comments: false
     };
   },
   methods: {
     uploadStream(item) {
       this.cmp = item;
+      this.comments = !this.comments;
+      console.log(this.comments);
     }
   }
 };
