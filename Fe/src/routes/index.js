@@ -73,11 +73,11 @@ const routes = [
       metaTags: [
         {
           name: "description",
-          content: "Hệ thống đăng ký trang xem phim trực tuyến"
+          content: "Hệ thống danh sách trang xem phim trực tuyến"
         },
         {
           property: "og:description",
-          content: "Hệ thống đăng ký trang xem phim trực tuyến"
+          content: "Hệ thống danh sách trang xem phim trực tuyến"
         }
       ]
     }
@@ -92,11 +92,11 @@ const routes = [
       metaTags: [
         {
           name: "description",
-          content: "Hệ thống xem phim trang xem phim trực tuyến"
+          content: "Hệ thống chi tiết trang xem phim trực tuyến"
         },
         {
           property: "og:description",
-          content: "Hệ thống xem phim trang xem phim trực tuyến"
+          content: "Hệ thống chi tiết trang xem phim trực tuyến"
         }
       ]
     }

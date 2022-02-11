@@ -18,14 +18,14 @@
                   <div class="film-detail-info"> 
                     <h1> {{ film.filmTitle }} </h1>
                     <div class="film-detail-btn">
-                      <router-link to="#" class="film-detail-trailer-btn"> 
+                      <button type="button" class="film-detail-trailer-btn"> 
                         <b-icon icon="film"></b-icon>
                         Trailer 
-                      </router-link>
-                      <router-link to="#" class="film-detail-film-btn"> 
+                      </button>
+                      <button @click="uploadStream('film-streaming')" type="button" class="film-detail-film-btn"> 
                         <b-icon icon="play-fill"></b-icon>
                         Xem phim 
-                      </router-link>
+                      </button>
                     </div>
                     <p> Thời lương: 145 phút </p>
                     <p> Quốc gia: Mỹ </p>
@@ -48,6 +48,11 @@
           <video-embed src="https://www.youtube.com/embed/kTJczUoc26U" class="film-detail-trailer-video"></video-embed>
         </div>
 
+        <component 
+          :is="cmp"
+          :source="film.filmTrailer">
+        </component>
+   
         <div class="film-detail-same-type">
           <p> Cùng thể loại </p>
           <b-container>
@@ -112,6 +117,7 @@
 <script>
 import HeaderNavbar from "../components/Header.vue";
 import FooterMenu from "../components/Footer.vue";
+import FilmStreaming from "./Film_streaming.vue";
 
 export default {
   props: {
@@ -126,7 +132,11 @@ export default {
   },
   data() {
     return {
-      components: { HeaderNavbar, FooterMenu },
+      components: { 
+        HeaderNavbar, 
+        FooterMenu, 
+        'film-streaming':FilmStreaming
+      },
       filmDetails: [
         {
           filmId: 1,
@@ -135,7 +145,8 @@ export default {
           filmTitle: "Người Nhện: Không Còn Nhà",
           filmDes: "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới",
           filmImage: require('../assets/images/spider-man-nwh-2.jpg'),
-          filmTrailer: ''
+          filmTrailer: '',
+          filmSource: 'https://media.istockphoto.com/videos/large-young-female-siberian-tiger-runs-directly-against-the-camera-video-id1296400636'
         },
         {
           filmId: 2,
@@ -155,10 +166,15 @@ export default {
           filmImage: require('../assets/images/suicide-squad-2.jpg'),
           filmTrailer: ''
         }
-      ]
+      ],
+      cmp: ''
     };
   },
-  methods: {}
+  methods: {
+    uploadStream(item) {
+      this.cmp = item;
+    }
+  }
 };
 </script>
 
@@ -222,6 +238,7 @@ export default {
 #film_detail .film-detail-background .film-detail-info .film-detail-btn .film-detail-trailer-btn {
   background-color: rgb(229, 102, 101);
   border-radius: 5px;
+  border: none;
   padding: 7px 15px;
   color: white;
   display: inline-block;
@@ -232,6 +249,7 @@ export default {
 #film_detail .film-detail-background .film-detail-info .film-detail-btn .film-detail-film-btn {
   background-color: rgb(80, 143, 222);
   border-radius: 5px;
+  border: none;
   padding: 7px 15px;
   color: white;
   display: inline-block;

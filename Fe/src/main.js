@@ -11,6 +11,7 @@ import Embed from "v-video-embed";
 import "./assets/css/style.css";
 import HeaderNavbar from "./components/Header.vue";
 import FooterMenu from "./components/Footer.vue";
+import FilmStreaming from "./views/Film_streaming.vue";
 
 // BootstrapVue
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
@@ -33,6 +34,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("HeaderNavbar", HeaderNavbar);
 Vue.component("FooterMenu", FooterMenu);
+Vue.component("FilmStreaming", FilmStreaming);
 Vue.component("VueSlickCarousel", VueSlickCarousel);
 Vue.use(Embed);
 
