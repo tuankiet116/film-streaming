@@ -19,7 +19,7 @@
               :key="listChild.listChildId"
             >
               <div class="list-items">
-                <router-link to="#">
+                <router-link :to="{ name: 'Detail', params: { name: name, detail: listChild.listChildLink}}">
                   <div class="list-items-img">
                     <img :src="listChild.listChildImg" alt="film image" />
                   </div>
@@ -66,21 +66,21 @@ export default {
               listChildTitle: "Người Nhện: Không Còn Nhà",
               listChildEng: "Spider-man: No Way Home",
               listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
+              listChildLink: "nguoi-nhen"
             },
             {
               listChildId: 2,
               listChildTitle: "Venom 2: Đối Mặt Tử Thù",
               listChildEng: "Venom: Let There Be Carnage",
               listChildImg: require("../assets/images/venom-2.jpg"),
-              listChildLink: "#"
+              listChildLink: "venom"
             },
             {
               listChildId: 3,
               listChildTitle: "Biệt Đội Cảm Tử 2",
               listChildEng: "Suicide Squad 2",
               listChildImg: require("../assets/images/suicide-squad-2.jpg"),
-              listChildLink: "#"
+              listChildLink: "biet-doi-cam-tu"
             },
             {
               listChildId: 4,

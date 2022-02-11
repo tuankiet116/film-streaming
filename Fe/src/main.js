@@ -4,7 +4,10 @@ import App from "./App.vue";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import VueMeta from "vue-meta";
+// VueSlickCarousel
 import VueSlickCarousel from "vue-slick-carousel";
+// Video embed
+import Embed from "v-video-embed";
 import "./assets/css/style.css";
 import HeaderNavbar from "./components/Header.vue";
 import FooterMenu from "./components/Footer.vue";
@@ -17,19 +20,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
 
-// Xgplayer
-
-// import VueXgplayer from "vue-xgplayer";
-
-// Vue.use(VueXgplayer, {
-
-//   enterLogo: {
-//     url: "/images/video-player-loading.png",
-//     width: 100,
-//     height: 40
-//   },
-//   playsinline: true
-// });
 
 const router = new VueRouter({
   mode: "history",
@@ -44,6 +34,7 @@ Vue.use(BootstrapVueIcons);
 Vue.component("HeaderNavbar", HeaderNavbar);
 Vue.component("FooterMenu", FooterMenu);
 Vue.component("VueSlickCarousel", VueSlickCarousel);
+Vue.use(Embed);
 
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {

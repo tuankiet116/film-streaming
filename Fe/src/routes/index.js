@@ -3,6 +3,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Home from "../views/Home.vue";
 import List from "../views/List.vue";
+import FilmDetail from "../views/Film_detail.vue";
 import Vue from 'vue';
 
 Vue.use(VueRouter);
@@ -68,7 +69,7 @@ const routes = [
     component: List,
     props: true,
     meta: {
-      title: "Đăng ký | Xem phim trực tuyến",
+      title: "Danh sách phim | Xem phim trực tuyến",
       metaTags: [
         {
           name: "description",
@@ -81,6 +82,25 @@ const routes = [
       ]
     }
   },
+  {
+    path: "/list/:name/:detail",
+    name: "Detail",
+    component: FilmDetail,
+    props: true,
+    meta: {
+      title: "Chi tiết phim | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content: "Hệ thống xem phim trang xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content: "Hệ thống xem phim trang xem phim trực tuyến"
+        }
+      ]
+    }
+  }
 ];
 
 export default routes;
