@@ -6,3 +6,7 @@ module.exports.paginateStart = (currentPage, limit = null) => {
     var limit = limit ? limit : LIMIT
     return (currentPage - 1) * limit
 }
+
+module.exports.page = (total) => {
+    return Math.ceil(total/LIMIT)
+}
