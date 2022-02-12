@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import routes from "./routes";
-import store from "./store"
+import data from "./store"
 import Vuex from 'vuex';
 import VueRouter from "vue-router";
 import VueMeta from "vue-meta";
@@ -94,6 +94,8 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
+
+const store = new Vuex.Store(data)
 
 new Vue({
   el: "#app",

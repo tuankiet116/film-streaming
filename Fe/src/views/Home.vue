@@ -31,7 +31,7 @@
       <p> {{ item.id }} </p>
     </div>
 
-    <div v-for='lists in list' :key='lists.id' class="film-list">
+    <div v-for='lists in list.data' :key='lists.id' class="film-list">
       <div class="film-list-name"> 
         <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
         {{ lists.name }}
@@ -142,20 +142,13 @@ export default {
   },
   computed: {
     list() {
-      console.log("state: " + this.$store.state);
+      console.log("state: " + this.$store.state.list);
       return this.$store.state.list;     
     }
-    // ...mapState('list', ['list'])
-    // ...mapState({
-    //   list: state => state.list
-    // })
   },
   mounted() {
     this.$store.dispatch('getList');
   },
-  // mounted() {
-  //   this.$store.dispatch('list/loadList');
-  // },
   methods: {
     
   }
