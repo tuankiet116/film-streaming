@@ -56,23 +56,13 @@
 </template>
 
 <script>
-import EventService from '../services/EventService.js'
-
 export default {
   data() {
     return {
       footerMenu: []
     };
   },
-  created() {
-    EventService.getFooter()
-      .then(response => {
-        this.footerMenu = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:' + error.response)
-      });
-  }
+ 
 };
 </script>
 

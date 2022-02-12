@@ -5,38 +5,47 @@
     <header-navbar></header-navbar>
 
     <!------ Slick slider ------>
-    <VueSlickCarousel v-bind="slickOptions">
-      <div v-for='slick in slickHome' :key='slick.slickId' class="slick-img">
-        <img :src="slick.slickSrc" :alt='slick.slickAlt'>
-        <div class="slick-info">
-          <p class="slick-title"> {{ slick.slickTitle }} </p>
-          <p class="slick-description" v-if="slick.slickDes < 100"> {{ slick.slickDes }} </p>
-          <p class="slick-description" v-else> {{ slick.slickDes.substring(0,100)+"..."  }} </p>
-          <a href="#" target="_self" class="slick-play">
-            <b-icon icon="play-fill" class="slick-play-icon"></b-icon>
-            Xem phim
-          </a>
+    <!-- <VueSlickCarousel v-bind="slickOptions">
+      <div v-for='slick in filmList' :key='slick.id' class="slick-img">
+        <div v-if='slick.id == 1'>
+          <div v-for='slickItem in slick.films.rows' :key='slickItem.id'>
+            <img :src="slickItem.image" alt="slick slider image">
+            <div class="slick-info">
+              <p class="slick-title"> {{ slickItem.name }} </p>
+              <p class="slick-description" v-if="slickItem.description < 100"> {{ slickItem.description }} </p>
+              <p class="slick-description" v-else> {{ slickItem.description.substring(0,100)+"..."  }} </p>
+              <a href="#" target="_self" class="slick-play">
+                <b-icon icon="play-fill" class="slick-play-icon"></b-icon>
+                Xem phim
+              </a>
+            </div>
+          </div>
         </div>
+        <div v-else></div>
       </div>
-    </VueSlickCarousel>
+    </VueSlickCarousel> -->
 
     <!------ Film list ------>
 
-    <div v-for='list in filmList' :key='list.listId' class="film-list">
+    <div v-for="item in list.data" :key="item.id">
+      <p> {{ item.id }} </p>
+    </div>
+
+    <div v-for='lists in list' :key='lists.id' class="film-list">
       <div class="film-list-name"> 
-        <b-icon :icon="list.listIcon" class="film-list-icon"></b-icon>
-        {{ list.listTitle }}
+        <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
+        {{ lists.name }}
       </div>
       <div class="film-list-content">
         <VueSlickCarousel v-bind="listFilms">
-          <div v-for='listItems in list.listItems' :key='listItems.itemId' class="film-list-items">
+          <div v-for='listFilm in lists.films.rows' :key='listFilm.id' class="film-list-items">
             <a href="#" target="_self">
               <div class="film-list-img">
-                <img :src="listItems.itemImg">
+                <img :src="listFilm.image">
               </div>
               <div class="film-list-info">
-                <p class="film-list-title"> {{ listItems.itemTitle }} </p>
-                <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p>
+                <p class="film-list-title"> {{ listFilm.name }} </p>
+                <!-- <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p> -->
               </div>
             </a>
           </div>
@@ -46,27 +55,27 @@
 
     <!------ New Film list ------>
 
-    <b-container class="new-film-list-content" fluid>
+    <!-- <b-container class="new-film-list-content" fluid>
       <b-row>
-        <b-col lg="4" md="6" sm="12" v-for='newFilm in newFilmList' :key='newFilm.newFilmId'>
+        <b-col lg="4" md="6" sm="12" v-for='newFilm in filmList' :key='newFilm.id'>
           <div class="new-film-list">
-            <p class="new-film-name"> {{ newFilm.newFilmName }} </p>
+            <p class="new-film-name"> {{ newFilm.name }} </p>
 
-            <a v-for='newFilmItem in newFilm.newFilmItems' :key='newFilmItem.newFilmItemId' href="#" target="_self">
+            <a v-for='newFilmItem in newFilm.films.rows' :key='newFilmItem.id' href="#" target="_self">
               <div class="new-film-items"> 
                 <div class="new-film-img">
-                  <img :src="newFilmItem.newFilmItemImg" alt="new film image">
+                  <img :src="newFilmItem.image" alt="new film image">
                 </div>
                 <div class="new-film-info">
-                  <p class="new-film-title"> {{ newFilmItem.newFilmTitle }} </p>
-                  <p class="new-film-eng"> {{ newFilmItem.newFilmEng }} </p>
+                  <p class="new-film-title"> {{ newFilmItem.name }} </p>
+                  
                 </div>
               </div>
             </a>
           </div>
         </b-col>
       </b-row>
-    </b-container>
+    </b-container> -->
 
     <footer-menu></footer-menu>
   </div>
@@ -79,7 +88,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import EventService from '../services/EventService.js'
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -129,38 +138,26 @@ export default {
           },
         ]
       },
-      slickHome: [],
-      filmList: [],
-      newFilmList: [],
     }
   },
-  created() {
-    EventService.getSlickHome()
-      .then(response => {
-        this.slickHome = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:' + error.response)
-      });
-
-    EventService.getFilmList()
-      .then(response => {
-        this.filmList = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:' + error.response)
-      });
-
-    EventService.getNewFilmList()
-      .then(response => {
-        this.newFilmList = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:' + error.response)
-      });
+  computed: {
+    list() {
+      console.log("state: " + this.$store.state);
+      return this.$store.state.list;     
+    }
+    // ...mapState('list', ['list'])
+    // ...mapState({
+    //   list: state => state.list
+    // })
   },
+  mounted() {
+    this.$store.dispatch('getList');
+  },
+  // mounted() {
+  //   this.$store.dispatch('list/loadList');
+  // },
   methods: {
-
+    
   }
 
 }

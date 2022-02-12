@@ -11,19 +11,19 @@
         <b-navbar-nav>
           <b-nav-item
             v-for="nav in menu"
-            :key="nav.menuId"
-            :href="nav.menuLink"
+            :key="nav.id"
+            href="#"
             class="header-items"
           >
-            {{ nav.menuTitle }}
+            {{ nav.name }}
           </b-nav-item>
 
-          <b-nav-item-dropdown text="danh mục" class="header-items header-dropdown">
+          <!-- <b-nav-item-dropdown text="danh mục" class="header-items header-dropdown">
             <b-dropdown-item href="#">Phim hành động</b-dropdown-item>
             <b-dropdown-item href="#">Phim tình cảm</b-dropdown-item>
             <b-dropdown-item href="#">Phim hoạt hình</b-dropdown-item>
             <b-dropdown-item href="#">Phim hài</b-dropdown-item>
-          </b-nav-item-dropdown>
+          </b-nav-item-dropdown> -->
         </b-navbar-nav>
 
         <b-navbar-nav class="header-items header-right">
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import EventService from '../services/EventService.js'
+// import EventService from '../services/EventService.js'
 
 export default {
   data() {
@@ -63,15 +63,15 @@ export default {
       menu: []
     };
   },
-  created() {
-    EventService.getMenu()
-      .then(response => {
-        this.menu = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:' + error.response)
-      });
-  }
+  // created() {
+  //   EventService.getMenu()
+  //     .then(response => {
+  //       this.menu = response.data
+  //     })
+  //     .catch(error => {
+  //       console.log('There was an error:' + error.response)
+  //     });
+  // }
 };
 </script>
 

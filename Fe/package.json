@@ -15,6 +15,7 @@
     "bootstrap-vue": "^2.21.2",
     "v-video-embed": "^1.0.8",
     "vue": "^2.6.14",
+    "vue-axios": "^3.4.1",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.3",
     "vue-slick-carousel": "^1.0.6",
