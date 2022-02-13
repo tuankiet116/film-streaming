@@ -13,6 +13,9 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/', routers)
 
+app.use('/profiles', express.static('./data/profiles'))
+app.use('/actors', express.static('./data/actors'))
+
 let server = app.listen(port, function () {
     console.log(`Server is running on port ${port}`)
 })

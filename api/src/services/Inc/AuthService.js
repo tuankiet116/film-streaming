@@ -16,7 +16,7 @@ let tokenGeneration = (payload, expiresIn = null) => {
 
 let checkToken = (token) => {
     payload = JWT.verify(token, process.env.SECRET_KEY)
-    console.log(payload)
+
     if (payload.exp) {
         if (payload.exp < Date.now()) {
             return payload
