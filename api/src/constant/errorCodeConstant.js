@@ -26,5 +26,25 @@ module.exports = {
     FILM_NOT_FOUND: {
         msg: "Film Not Found",
         id: 7
+    },
+    FILM_NAME_DUPLICATE: {
+        msg: "Name has been exists",
+        id: 8
+    },
+    FIELD_REQUIRE: {
+        msg: "Field is required",
+        id: 9
+    },
+    FILE_REQUIRED: {
+        msg: "File upload missing or error",
+        id: 10
+    },
+    VIDIEO_WRONG: {
+        msg: "Movie source wrong",
+        id: 11
+    },
+    PROFILE_WRONG: {
+        msg: "Profile source wrong",
+        id: 12
     }
 }

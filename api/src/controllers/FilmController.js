@@ -21,7 +21,6 @@ filmController.listByTypeID = async (req, res) => {
 
 filmController.listByType = async (req, res) => {
     try {
-        console.log(123)
         let types = await FilmService.listByType(req, res)
         if (!types) {
             resHelper.ApiResponse(types, responseCode.NOT_FOUND, res)
