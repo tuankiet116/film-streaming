@@ -28,7 +28,7 @@ const routes = [
     }
   },
   {
-    path: "/login",
+    path: "/dang-nhap",
     name: "Login",
     component: Login,
     meta: {
@@ -46,7 +46,7 @@ const routes = [
     }
   },
   {
-    path: "/register",
+    path: "/dang-ky",
     name: "Register",
     component: Register,
     meta: {
@@ -64,8 +64,8 @@ const routes = [
     }
   },
   {
-    path: "/list/:name",
-    name: "List",
+    path: "/phim/:title",
+    name: "Films",
     component: List,
     props: true,
     meta: {
@@ -83,7 +83,7 @@ const routes = [
     }
   },
   {
-    path: "/list/:name/:detail",
+    path: "/phim/:title/:filmDetail",
     name: "Detail",
     component: FilmDetail,
     props: true,

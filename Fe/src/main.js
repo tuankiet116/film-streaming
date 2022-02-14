@@ -39,6 +39,7 @@ Vue.component("FilmStreaming", FilmStreaming);
 Vue.component("VueSlickCarousel", VueSlickCarousel);
 Vue.use(Embed);
 
+
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
   // This goes through the matched routes from last to first, finding the closest route with a title.
@@ -95,7 +96,35 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-const store = new Vuex.Store(data)
+const store = new Vuex.Store(data);
+
+const baseUrl = {
+  url: "http://localhost:8080/"
+};
+
+baseUrl.install = function() {
+  Object.defineProperty(Vue.prototype, "$baseUrl", {
+    get() {
+      return baseUrl;
+    }
+  });
+};
+
+Vue.use(baseUrl);
+
+const apiUrl = {
+  api: "http://localhost:3333/"
+}
+
+apiUrl.install = function() {
+  Object.defineProperty(Vue.prototype, "$apiUrl", {
+    get() {
+      return apiUrl;
+    }
+  });
+};
+
+Vue.use(apiUrl);
 
 new Vue({
   el: "#app",

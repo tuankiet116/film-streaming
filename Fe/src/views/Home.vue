@@ -2,52 +2,61 @@
   <div id="home">
   
     <!------ Header ------>
-    <header-navbar></header-navbar>
+    <header-navbar :nav="navbar"></header-navbar>
 
     <!------ Slick slider ------>
-    <!-- <VueSlickCarousel v-bind="slickOptions">
-      <div v-for='slick in filmList' :key='slick.id' class="slick-img">
-        <div v-if='slick.id == 1'>
-          <div v-for='slickItem in slick.films.rows' :key='slickItem.id'>
-            <img :src="slickItem.image" alt="slick slider image">
-            <div class="slick-info">
-              <p class="slick-title"> {{ slickItem.name }} </p>
-              <p class="slick-description" v-if="slickItem.description < 100"> {{ slickItem.description }} </p>
-              <p class="slick-description" v-else> {{ slickItem.description.substring(0,100)+"..."  }} </p>
-              <a href="#" target="_self" class="slick-play">
+    <VueSlickCarousel v-bind="slickOptions">
+      <div v-for='slick in listByType.data.rows' :key='slick.id' class="slick-img">
+        <img :src="$apiUrl.api + 'profiles/' + slick.image" alt="slick slider image">
+        <div class="slick-info">
+          <p class="slick-title"> {{ slick.name }} </p>
+          <p class="slick-description" v-if="slick.description < 100"> {{ slick.description }} </p>
+          <p class="slick-description" v-else> {{ slick.description.substring(0,100)+"..."  }} </p>
+          <span v-for="slideLink in navbar.data" :key="slideLink.id">
+            <span v-if="slideLink.id == slick.id">
+              <a :href="$baseUrl.url + 'phim/' + removeAccents(slideLink.name) + '-' + slideLink.id + '/' + slick.id" target="_self" class="slick-play">
                 <b-icon icon="play-fill" class="slick-play-icon"></b-icon>
                 Xem phim
               </a>
-            </div>
-          </div>
-        </div>
-        <div v-else></div>
+            </span>
+            <span v-else></span>
+          </span>
+        </div>    
       </div>
-    </VueSlickCarousel> -->
+    </VueSlickCarousel>
 
     <!------ Film list ------>
 
-    <div v-for="item in list.data" :key="item.id">
-      <p> {{ item.id }} </p>
-    </div>
-
     <div v-for='lists in list.data' :key='lists.id' class="film-list">
       <div class="film-list-name"> 
-        <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
+        <span v-if="lists.id == 1">
+          <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
+        </span>
+        <span v-else-if="lists.id == 2">
+          <b-icon icon="cast" class="film-list-icon"></b-icon>
+        </span>
+        <span v-else>
+          <b-icon icon="collection-play-fill" class="film-list-icon"></b-icon>
+        </span>
         {{ lists.name }}
       </div>
       <div class="film-list-content">
         <VueSlickCarousel v-bind="listFilms">
           <div v-for='listFilm in lists.films.rows' :key='listFilm.id' class="film-list-items">
-            <a href="#" target="_self">
-              <div class="film-list-img">
-                <img :src="listFilm.image">
-              </div>
-              <div class="film-list-info">
-                <p class="film-list-title"> {{ listFilm.name }} </p>
-                <!-- <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p> -->
-              </div>
-            </a>
+            <span v-for='listType in navbar.data' :key='listType.id'>
+              <span v-if='listFilm.type_id == listType.id'>
+                <a :href="$baseUrl.url + 'phim/' + removeAccents(listType.name) + '-' + listType.id + '/' + listFilm.id" target="_self">
+                  <div class="film-list-img">
+                    <img :src="listFilm.image">
+                  </div>
+                  <div class="film-list-info">
+                    <p class="film-list-title"> {{ listFilm.name }} </p>
+                    <!-- <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p> -->
+                  </div>
+                </a>
+              </span>
+              <span v-else></span>
+            </span>
           </div>
         </VueSlickCarousel>
       </div>
@@ -55,27 +64,33 @@
 
     <!------ New Film list ------>
 
-    <!-- <b-container class="new-film-list-content" fluid>
+    <b-container class="new-film-list-content" fluid>
       <b-row>
-        <b-col lg="4" md="6" sm="12" v-for='newFilm in filmList' :key='newFilm.id'>
+        <b-col lg="4" md="6" sm="12" v-for='newFilm in list.data' :key='newFilm.id'>
           <div class="new-film-list">
             <p class="new-film-name"> {{ newFilm.name }} </p>
 
-            <a v-for='newFilmItem in newFilm.films.rows' :key='newFilmItem.id' href="#" target="_self">
-              <div class="new-film-items"> 
-                <div class="new-film-img">
-                  <img :src="newFilmItem.image" alt="new film image">
-                </div>
-                <div class="new-film-info">
-                  <p class="new-film-title"> {{ newFilmItem.name }} </p>
-                  
-                </div>
-              </div>
-            </a>
+            <span v-for='newFilmItem in newFilm.films.rows' :key='newFilmItem.id'>
+              <span v-for='newFilmType in navbar.data' :key='newFilmType.id'>
+                <span v-if='newFilmItem.type_id == newFilmType.id'>
+                  <a :href="$baseUrl.url + 'phim/' + removeAccents(newFilmType.name) + '-' + newFilmType.id + '/' + newFilmItem.id" target="_self">
+                    <div class="new-film-items"> 
+                      <div class="new-film-img">
+                        <img :src="newFilmItem.image" alt="new film image">
+                      </div>
+                      <div class="new-film-info">
+                        <p class="new-film-title"> {{ newFilmItem.name }} </p>
+                      </div>
+                    </div>
+                  </a>
+                </span>
+                <span v-else></span>
+              </span>
+            </span>
           </div>
         </b-col>
       </b-row>
-    </b-container> -->
+    </b-container>
 
     <footer-menu></footer-menu>
   </div>
@@ -88,7 +103,6 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -141,16 +155,28 @@ export default {
     }
   },
   computed: {
+    navbar() {
+      return this.$store.state.navbar;
+    },
     list() {
-      console.log("state: " + this.$store.state.list);
       return this.$store.state.list;     
+    },
+    listByType() {
+      return this.$store.state.listByType;
     }
   },
   mounted() {
+    this.$store.dispatch('getNavbar');
     this.$store.dispatch('getList');
+    this.$store.dispatch('getListByType', 1);
   },
   methods: {
-    
+    removeAccents(str) {
+      return str.normalize('NFD')
+             .replace(/[\u0300-\u036f]/g, '')
+             .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+             .replace(/\s+/g, '-').toLowerCase();
+    }
   }
 
 }

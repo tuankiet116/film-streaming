@@ -1,109 +1,38 @@
 <template>
   <div id="film_detail">
-    <header-navbar></header-navbar>
-    <div v-for='film in filmDetails' :key='film.filmId'>
-      <div v-if='detail == film.filmName'>
-        <div class="film-detail-image">
-          <img :src="film.filmImage">
-          <div class="film-detail-background">
-            <b-container>
-              <b-row>
-                <b-col lg="4" md="6" sm="12">
-                  <div class="film-detail-img">
-                    <img :src="film.filmImage" alt="Film image">
-                  </div>
-                </b-col>
-
-                <b-col lg="8" md="6" sm="12">
-                  <div class="film-detail-info"> 
-                    <h1> {{ film.filmTitle }} </h1>
-                    <div class="film-detail-btn">
-                      <button type="button" class="film-detail-trailer-btn"> 
-                        <b-icon icon="film"></b-icon>
-                        Trailer 
-                      </button>
-                      <button @click="uploadStream('film-streaming')" type="button" class="film-detail-film-btn"> 
-                        <b-icon icon="play-fill"></b-icon>
-                        Xem phim 
-                      </button>
-                    </div>
-                    <p> Thời lương: 145 phút </p>
-                    <p> Quốc gia: Mỹ </p>
-                    <p> Chất lượng: HD </p>
-                    <p> Ngôn ngữ: Vietsub + Thuyết minh </p>
-                  </div>
-                </b-col>
-              </b-row>
-            </b-container>
-          </div>
-        </div>
-
-        <div class="film-detail-des">
-          <p> {{ film.filmDes }} </p>
-        </div>
-
-        <div class="film-detail-trailer">
-          <p> Official trailer </p>
-          {{ film.filmTrailer }}
-          <video-embed src="https://www.youtube.com/embed/kTJczUoc26U" class="film-detail-trailer-video"></video-embed>
-        </div>
-
-        <component 
-          :is="cmp"
-          :source="film.filmTrailer">
-        </component>
-
-        <div v-if="comments">
-          <div class="fb-comments" id="show" data-href="http://localhost:8080/" data-width="500" data-numposts="5"></div>
-        </div>
-        <div v-else></div>
-   
-        <div class="film-detail-same-type">
-          <p> Cùng thể loại </p>
+    <header-navbar :nav="navbar"></header-navbar>
+      <div class="film-detail-image">
+        <!-- <img :src="detail.data.image"> -->
+        <img src="../assets/images/spider-man-nwh-2.jpg">
+        <div class="film-detail-background">
           <b-container>
             <b-row>
-              <b-col lg="3" md="6" sm="1">
-                <div class="film-detail-same-items">
-                  <router-link to="#">
-                    <div class="film-detail-same-img">
-                      <img src="../assets/images/spider-man-nwh-2.jpg" alt="same film type">
-                    </div>
-                    <div class="film-detail-same-info">
-                      <p class="film-detail-same-title"> Người Nhện: Không Còn Nhà </p>
-                    </div>
-                  </router-link>
-                </div>  
-              </b-col>
-
-              <b-col lg="3" md="6" sm="1">
-                <div class="film-detail-same-items">
-                  <div class="film-detail-same-img">
-                    <img src="../assets/images/suicide-squad-2.jpg" alt="same film type">
-                  </div>
-                  <div class="film-detail-same-info">
-                    <p class="film-detail-same-title"> Biệt Đội Cảm Tử 2 </p>
-                  </div>
+              <b-col lg="4" md="6" sm="12">
+                <div class="film-detail-img">
+                  <!-- <img :src="detail.data.image" alt="Film image"> -->
+                  <img src="../assets/images/spider-man-nwh-2.jpg">
                 </div>
               </b-col>
 
-              <b-col lg="3" md="6" sm="1">
-                <div class="film-detail-same-items">
-                  <div class="film-detail-same-img">
-                    <img src="../assets/images/venom-2.jpg" alt="same film type">
+              <b-col lg="8" md="6" sm="12">
+                <div class="film-detail-info"> 
+                  <h1> {{ detail.data.name }} </h1>
+                  <div class="film-detail-btn">
+                    <button type="button" class="film-detail-trailer-btn"> 
+                      <b-icon icon="film"></b-icon>
+                      Trailer 
+                    </button>
+                    <button @click="uploadStream('film-streaming')" type="button" class="film-detail-film-btn"> 
+                      <b-icon icon="play-fill"></b-icon>
+                      Xem phim 
+                    </button>
                   </div>
-                  <div class="film-detail-same-info">
-                    <p class="film-detail-same-title"> Venom: Let There Be Carnage </p>
-                  </div>
-                </div>
-              </b-col>
-
-              <b-col lg="3" md="6" sm="1">
-                <div class="film-detail-same-items">
-                  <div class="film-detail-same-img">
-                    <img src="../assets/images/spider-man-nwh-2.jpg" alt="same film type">
-                  </div>
-                  <div class="film-detail-same-info">
-                    <p class="film-detail-same-title"> Người Nhện: Không Còn Nhà </p>
+                  <p> Diễn viên: {{ detail.data.actor }} </p>
+                  <div v-for="type in navbar.data" :key="type.id">
+                    <p v-if="id == type.id">
+                      Thể loại: {{ type.name }}
+                    </p>
+                    <p v-else></p>
                   </div>
                 </div>
               </b-col>
@@ -112,8 +41,47 @@
         </div>
       </div>
 
+      <div class="film-detail-des">
+        <p> {{ detail.data.description }} </p>
+      </div>
+
+      <div class="film-detail-trailer">
+        <p> Official trailer </p>
+        <video-embed :src="detail.data.trailer" class="film-detail-trailer-video"></video-embed>
+      </div>
+
+      <component 
+        :is="cmp"
+        :source="detail.data.id"
+        :img="detail.data.image">
+      </component>
+
+      <div v-if="comments">
+        <div class="fb-comments" id="show" data-href="http://localhost:8080/" data-width="500" data-numposts="5"></div>
+      </div>
       <div v-else></div>
-    </div>
+  
+      <div class="film-detail-same-type">
+        <p> Cùng thể loại </p>
+        <b-container>
+          <b-row>
+            <b-col lg="3" md="6" sm="1" v-for="same in listByType.data.rows" :key="same.id">
+              <div class="film-detail-same-items">
+                <a :href="$baseUrl.url + 'phim/' + title + '/' + same.id">
+                  <div class="film-detail-same-img">
+                    <img src="../assets/images/spider-man-nwh-2.jpg" alt="same film type">
+                    <!-- <img :src="same.image" alt="same film type"> -->
+                  </div>
+                  <div class="film-detail-same-info">
+                    <p class="film-detail-same-title"> {{ same.name }} </p>
+                  </div>
+                </a>
+              </div>  
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+
 
     <footer-menu></footer-menu>
   </div>
@@ -125,16 +93,7 @@ import FooterMenu from "../components/Footer.vue";
 import FilmStreaming from "./Film_streaming.vue";
 
 export default {
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    detail: {
-      type: String,
-      required: true
-    }
-  },
+  props: ['title', 'filmDetail'],
   data() {
     return {
       components: { 
@@ -142,39 +101,28 @@ export default {
         FooterMenu, 
         'film-streaming':FilmStreaming
       },
-      filmDetails: [
-        {
-          filmId: 1,
-          filmType: "phim-moi",
-          filmName: "nguoi-nhen",
-          filmTitle: "Người Nhện: Không Còn Nhà",
-          filmDes: "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới",
-          filmImage: require('../assets/images/spider-man-nwh-2.jpg'),
-          filmTrailer: '',
-          filmSource: 'https://media.istockphoto.com/videos/large-young-female-siberian-tiger-runs-directly-against-the-camera-video-id1296400636'
-        },
-        {
-          filmId: 2,
-          filmType: "phim-moi",
-          filmName: "venom",
-          filmTitle: "Venom 2: Đối Mặt Tử Thù",
-          filmDes: "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới",
-          filmImage: require('../assets/images/venom-2.jpg'),
-          filmTrailer: ''
-        },
-        {
-          filmId: 1,
-          filmType: "phim-moi",
-          filmName: "biet-doi-cam-tu",
-          filmTitle: "Biệt Đội Cảm Tử 2",
-          filmDes: "Sau khi Quentin Beck buộc tội Peter Parker về tội giết người và tiết lộ danh tính của cậu cho cả thế giới",
-          filmImage: require('../assets/images/suicide-squad-2.jpg'),
-          filmTrailer: ''
-        }
-      ],
       cmp: '',
       comments: false
     };
+  },
+  computed: {
+    navbar() {
+      return this.$store.state.navbar;
+    },
+    detail() {
+      return this.$store.state.detail;
+    },
+    id() {
+      return this.$route.params.title.slice(-1);
+    },
+    listByType() {
+      return this.$store.state.listByType;
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getNavbar');
+    this.$store.dispatch("getDetail", this.filmDetail);
+    this.$store.dispatch("getListByType", this.id);
   },
   methods: {
     uploadStream(item) {
@@ -318,7 +266,7 @@ export default {
   height: 300px;
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: 5px 5px 10px 3px rgb(30, 30, 30);
+  box-shadow: 5px 5px 10px 3px rgb(15, 15, 15);
 }
 
 #film_detail .film-detail-same-type .film-detail-same-items .film-detail-same-img img {

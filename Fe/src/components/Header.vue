@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <b-navbar toggleable="lg" type="dark" class="header-color">
-      <b-navbar-brand href="#" class="header-logo">
+      <b-navbar-brand :href="$baseUrl.url" class="header-logo">
         <img src="../assets/images/movie-logo-2-new.png" alt="Navbar Logo" />
       </b-navbar-brand>
 
@@ -10,20 +10,20 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item
-            v-for="nav in menu"
-            :key="nav.id"
-            href="#"
-            class="header-items"
-          >
-            {{ nav.name }}
+            v-for="navbar in nav.data"
+            :key="navbar.id"
+            :href="$baseUrl.url + 'phim/' + removeAccents(navbar.name) + '-' + navbar.id"
+            class="header-items">
+            {{ navbar.name }}
           </b-nav-item>
-
-          <!-- <b-nav-item-dropdown text="danh mục" class="header-items header-dropdown">
-            <b-dropdown-item href="#">Phim hành động</b-dropdown-item>
-            <b-dropdown-item href="#">Phim tình cảm</b-dropdown-item>
-            <b-dropdown-item href="#">Phim hoạt hình</b-dropdown-item>
-            <b-dropdown-item href="#">Phim hài</b-dropdown-item>
-          </b-nav-item-dropdown> -->
+          <!-- <router-link 
+            v-for="navbar in nav.data"
+            :key="navbar.id"
+            :to="{ name: 'Films', params: {title: removeAccents(navbar.name) + '-' + navbar.id} }"
+            class="header-items">
+            {{ navbar.name }}
+          </router-link> -->
+          
         </b-navbar-nav>
 
         <b-navbar-nav class="header-items header-right">
@@ -58,11 +58,20 @@
 // import EventService from '../services/EventService.js'
 
 export default {
+  props: ['nav'],
   data() {
     return {
-      menu: []
+
     };
   },
+  methods: {
+    removeAccents(str) {
+      return str.normalize('NFD')
+             .replace(/[\u0300-\u036f]/g, '')
+             .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+             .replace(/\s+/g, '-').toLowerCase();
+    }
+  }
   // created() {
   //   EventService.getMenu()
   //     .then(response => {
@@ -109,7 +118,12 @@ export default {
 }
 
 #header .header-items a {
+  text-transform: uppercase;
+  font-family: "Roboto", Arial;
+  font-weight: bold;
   color: white !important;
+  text-decoration: none;
+  padding-right: 20px;
 }
 
 #header .header-items .header-search-form {

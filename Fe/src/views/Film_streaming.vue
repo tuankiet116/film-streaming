@@ -7,7 +7,7 @@
         controls
         preload="auto"
         poster="../assets/images/spider-man-nwh-2.jpg">
-        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+        <source :src="$apiUrl.api + 'films/stream/' + source" type="video/mp4" />
       </video>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  components: { },
+  props: ['source', 'img'],
   data() {
     return {
       

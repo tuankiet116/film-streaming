@@ -1,3 +1,7 @@
 export default {
-  list: []
+  navbar: [],
+  list: [],
+  slide: [],
+  listByType: null,
+  detail: null
 };
