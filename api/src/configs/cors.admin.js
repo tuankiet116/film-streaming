@@ -2,7 +2,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 dotenv.config()
 
-let whiteList = process.env.CORS_URL
+let whiteList = process.env.CORS_URL_ADMIN
 
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
