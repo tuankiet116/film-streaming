@@ -7,9 +7,9 @@
     <div class="login-container">
         <div class="login-content">
             <h1> {{ pageTitle }} </h1>
-            <input type="text" v-model="login_user" placeholder="Email hoặc số điện thoại">
-            <input type="password" v-model="login_password" placeholder="Mật khẩu">
-            <button id="login_button" type="button" @click="handleSubmit()"> {{ pageTitle }} </button>
+            <input type="text" v-model="email" placeholder="Email">
+            <input type="password" v-model="password" placeholder="Mật khẩu">
+            <button id="login_button" type="button" @click="loginSubmit"> {{ pageTitle }} </button>
             <div class="remember-me">
               <input type="checkbox">
               <p> Ghi nhớ tôi </p>
@@ -24,16 +24,26 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       pageTitle: 'Đăng nhập',
-      login_user: '',
-      login_password: '',
+      email: '',
+      password: '',
+      apiUrl: 'http://localhost:3333/'
     }
   },
   methods: {
-
+    loginSubmit() {
+      const login = {
+        email: this.email,
+        password: this.password
+      }
+      axios.post(this.apiUrl + 'auth/login', login)
+      .then(response => console.log(response))
+    }
   }
 }
 </script>

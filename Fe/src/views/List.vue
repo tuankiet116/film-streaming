@@ -1,40 +1,44 @@
 <template>
   <div id="list">
-    <header-navbar></header-navbar>
-    <div
-      class="list-container"
-      v-for="listItem in listItems"
-      :key="listItem.listItemId"
-    >
-      <div v-if="name == listItem.listItemName">
-        <h1>{{ listItem.listItemTitle }}</h1>
-        <b-container>
-          <b-row>
-            <b-col
-              lg="3"
-              md="4"
-              sm="6"
-              xs="12"
-              v-for="listChild in listItem.listItemChild"
-              :key="listChild.listChildId"
-            >
-              <div class="list-items">
-                <router-link to="#">
-                  <div class="list-items-img">
-                    <img :src="listChild.listChildImg" alt="film image" />
-                  </div>
-                  <div class="list-items-info">
-                    <p class="list-items-title">{{ listChild.listChildTitle }}</p>
-                    <p class="list-items-eng">{{ listChild.listChildEng }}</p>
-                  </div>
-                </router-link>
-              </div>
-            </b-col>
-          </b-row>
-        </b-container>
-      </div>
-
-      <div v-else></div>
+    <header-navbar :nav="navbar"></header-navbar>
+    <div class="list-container">  
+      <span v-for="listTitle in navbar.data" :key="listTitle.id">
+        <h1 v-if="id == listTitle.id">
+          {{ listTitle.name }}
+        </h1>
+        <span v-else></span>
+      </span>
+      <b-container>
+        <b-row>
+          <b-col
+            lg="3"
+            md="4"
+            sm="6"
+            xs="12"
+            v-for="listItem in listByType.data.rows"
+            :key="listItem.id"
+          >
+            <div class="list-items">
+              <!-- <router-link :to="{ name: 'Detail', params: { title: title, detail: listItem.id}}">
+                <div class="list-items-img">
+                  <img :src="listItem.image" alt="film image" />
+                </div>
+                <div class="list-items-info">
+                  <p class="list-items-title">{{ listItem.name }}</p>
+                </div>
+              </router-link> -->
+              <a :href="$baseUrl.url + 'phim/' + title + '/' + listItem.id">
+                <div class="list-items-img">
+                  <img :src="listItem.image" alt="film image" />
+                </div>
+                <div class="list-items-info">
+                  <p class="list-items-title">{{ listItem.name }}</p>
+                </div>
+              </a>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container> 
     </div>
 
     <footer-menu></footer-menu>
@@ -46,153 +50,38 @@ import HeaderNavbar from "../components/Header.vue";
 import FooterMenu from "../components/Footer.vue";
 
 export default {
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
-  },
+  props: ['title'],
   data() {
     return {
       components: { HeaderNavbar, FooterMenu },
-      listItems: [
-        {
-          listItemId: 1,
-          listItemName: "phim-moi",
-          listItemTitle: "Phim mới",
-          listItemChild: [
-            {
-              listChildId: 1,
-              listChildTitle: "Người Nhện: Không Còn Nhà",
-              listChildEng: "Spider-man: No Way Home",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 2,
-              listChildTitle: "Venom 2: Đối Mặt Tử Thù",
-              listChildEng: "Venom: Let There Be Carnage",
-              listChildImg: require("../assets/images/venom-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 3,
-              listChildTitle: "Biệt Đội Cảm Tử 2",
-              listChildEng: "Suicide Squad 2",
-              listChildImg: require("../assets/images/suicide-squad-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 4,
-              listChildTitle: "Chủng Tộc Bất Tử",
-              listChildEng: "Eternals",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 5,
-              listChildTitle: "Người Nhện: Không Còn Nhà",
-              listChildEng: "Spider-man: No Way Home",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 6,
-              listChildTitle: "Venom 2: Đối Mặt Tử Thù",
-              listChildEng: "Venom: Let There Be Carnage",
-              listChildImg: require("../assets/images/venom-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 7,
-              listChildTitle: "Biệt Đội Cảm Tử 2",
-              listChildEng: "Suicide Squad 2",
-              listChildImg: require("../assets/images/suicide-squad-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 8,
-              listChildTitle: "Chủng Tộc Bất Tử",
-              listChildEng: "Eternals",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            }
-          ]
-        },
-        {
-          listItemId: 2,
-          listItemName: "phim-le",
-          listItemTitle: "Phim lẻ",
-          listItemChild: [
-            {
-              listChildId: 1,
-              listChildTitle: "Người Nhện: Không Còn Nhà",
-              listChildEng: "Spider-man: No Way Home",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 2,
-              listChildTitle: "Venom 2: Đối Mặt Tử Thù",
-              listChildEng: "Venom: Let There Be Carnage",
-              listChildImg: require("../assets/images/venom-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 3,
-              listChildTitle: "Biệt Đội Cảm Tử 2",
-              listChildEng: "Suicide Squad 2",
-              listChildImg: require("../assets/images/suicide-squad-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 4,
-              listChildTitle: "Chủng Tộc Bất Tử",
-              listChildEng: "Eternals",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            }
-          ]
-        },
-        {
-          listItemId: 3,
-          listItemName: "phim-bo",
-          listItemTitle: "Phim bộ",
-          listItemChild: [
-            {
-              listChildId: 1,
-              listChildTitle: "Người Nhện: Không Còn Nhà",
-              listChildEng: "Spider-man: No Way Home",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 2,
-              listChildTitle: "Venom 2: Đối Mặt Tử Thù",
-              listChildEng: "Venom: Let There Be Carnage",
-              listChildImg: require("../assets/images/venom-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 3,
-              listChildTitle: "Biệt Đội Cảm Tử 2",
-              listChildEng: "Suicide Squad 2",
-              listChildImg: require("../assets/images/suicide-squad-2.jpg"),
-              listChildLink: "#"
-            },
-            {
-              listChildId: 4,
-              listChildTitle: "Chủng Tộc Bất Tử",
-              listChildEng: "Eternals",
-              listChildImg: require("../assets/images/spider-man-nwh-2.jpg"),
-              listChildLink: "#"
-            }
-          ]
-        }
-      ]
     };
   },
-  methods: {}
+  created() {
+    const reloaded = localStorage.getItem('reloaded');
+    if (reloaded !== 'true') {
+      localStorage.setItem('reloaded', 'true');
+      location.reload();
+    }
+  },
+  computed: {
+    navbar() {
+      return this.$store.state.navbar;
+    },
+    listByType() {
+      return this.$store.state.listByType;
+    },
+    id() {
+      return this.$route.params.title.slice(-1);
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getNavbar');
+    this.$store.dispatch('getList');
+    this.$store.dispatch("getListByType", this.id);
+  },
+  methods: {
+    
+  }
 };
 </script>
 

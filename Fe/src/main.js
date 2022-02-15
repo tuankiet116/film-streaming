@@ -1,13 +1,20 @@
 import Vue from "vue";
-// import Vuex from 'vuex'
 import App from "./App.vue";
 import routes from "./routes";
+import data from "./store"
+import Vuex from 'vuex';
 import VueRouter from "vue-router";
 import VueMeta from "vue-meta";
+// VueSlickCarousel
 import VueSlickCarousel from "vue-slick-carousel";
+// Video embed
+import Embed from "v-video-embed";
 import "./assets/css/style.css";
 import HeaderNavbar from "./components/Header.vue";
 import FooterMenu from "./components/Footer.vue";
+import FilmStreaming from "./views/Film_streaming.vue";
+import HeaderAdmin from "./admin/components/Header.vue";
+import SideBar from "./admin/components/Sidebar.vue";
 
 // BootstrapVue
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
@@ -17,33 +24,25 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
 
-// Xgplayer
-
-// import VueXgplayer from "vue-xgplayer";
-
-// Vue.use(VueXgplayer, {
-
-//   enterLogo: {
-//     url: "/images/video-player-loading.png",
-//     width: 100,
-//     height: 40
-//   },
-//   playsinline: true
-// });
 
 const router = new VueRouter({
   mode: "history",
   routes,
 });
 
-// Vue.use(Vuex)
+Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueMeta);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("HeaderNavbar", HeaderNavbar);
 Vue.component("FooterMenu", FooterMenu);
+Vue.component("FilmStreaming", FilmStreaming);
 Vue.component("VueSlickCarousel", VueSlickCarousel);
+Vue.use(Embed);
+Vue.component("HeaderAdmin", HeaderAdmin);
+Vue.component("SideBar", SideBar);
+
 
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
@@ -101,9 +100,41 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+const store = new Vuex.Store(data);
+
+const baseUrl = {
+  url: "http://localhost:8080/"
+};
+
+baseUrl.install = function() {
+  Object.defineProperty(Vue.prototype, "$baseUrl", {
+    get() {
+      return baseUrl;
+    }
+  });
+};
+
+Vue.use(baseUrl);
+
+const apiUrl = {
+  api: "http://localhost:3333/"
+}
+
+apiUrl.install = function() {
+  Object.defineProperty(Vue.prototype, "$apiUrl", {
+    get() {
+      return apiUrl;
+    }
+  });
+};
+
+Vue.use(apiUrl);
+
+
 new Vue({
   el: "#app",
   components: { App },
   template: "<App/>",
   router,
+  store
 });
