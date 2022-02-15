@@ -13,7 +13,7 @@
           <p class="slick-description" v-if="slick.description < 100"> {{ slick.description }} </p>
           <p class="slick-description" v-else> {{ slick.description.substring(0,100)+"..."  }} </p>
           <span v-for="slideLink in navbar.data" :key="slideLink.id">
-            <span v-if="slideLink.id == slick.id">
+            <span v-if="slideLink.id == slick.type_id">
               <a :href="$baseUrl.url + 'phim/' + removeAccents(slideLink.name) + '-' + slideLink.id + '/' + slick.id" target="_self" class="slick-play">
                 <b-icon icon="play-fill" class="slick-play-icon"></b-icon>
                 Xem phim

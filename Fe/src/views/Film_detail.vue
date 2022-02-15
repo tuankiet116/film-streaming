@@ -2,15 +2,13 @@
   <div id="film_detail">
     <header-navbar :nav="navbar"></header-navbar>
       <div class="film-detail-image">
-        <!-- <img :src="detail.data.image"> -->
-        <img src="../assets/images/spider-man-nwh-2.jpg">
+        <img :src="$apiUrl.api + 'profiles/' + detail.data.image">
         <div class="film-detail-background">
           <b-container>
             <b-row>
               <b-col lg="4" md="6" sm="12">
                 <div class="film-detail-img">
-                  <!-- <img :src="detail.data.image" alt="Film image"> -->
-                  <img src="../assets/images/spider-man-nwh-2.jpg">
+                  <img :src="$apiUrl.api + 'profiles/' + detail.data.image">
                 </div>
               </b-col>
 
@@ -69,7 +67,7 @@
               <div class="film-detail-same-items">
                 <a :href="$baseUrl.url + 'phim/' + title + '/' + same.id">
                   <div class="film-detail-same-img">
-                    <img src="../assets/images/spider-man-nwh-2.jpg" alt="same film type">
+                    <img :src="$apiUrl.api + 'profiles/' + same.image" alt="same film type">
                     <!-- <img :src="same.image" alt="same film type"> -->
                   </div>
                   <div class="film-detail-same-info">
