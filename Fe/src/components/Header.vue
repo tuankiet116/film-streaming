@@ -45,8 +45,8 @@
                 <b-icon icon="person-circle" class="header-user-icon"></b-icon>
               </em>
             </template>
-            <b-dropdown-item href="#">Thông tin tài khoản</b-dropdown-item>
-            <b-dropdown-item href="#">Ðang xuất</b-dropdown-item>
+            <b-dropdown-item :href="$baseUrl.url + 'dang-nhap'">Đăng nhập</b-dropdown-item>
+            <b-dropdown-item :href="$baseUrl.url + 'dang-ky'">Ðang ký</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>

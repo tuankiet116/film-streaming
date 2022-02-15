@@ -7,13 +7,11 @@
     <div class="register-container">
         <div class="register-content">
             <h1> {{ pageTitle }} </h1>
-            <input type="text" v-model="register_user" placeholder="Tên đăng nhập">
-            <input type="password" v-model="register_password" placeholder="Mật khẩu">
-            <input type="password" v-model="register_password_repeat" placeholder="Nhập lại mật khẩu">
-            <input type="text" v-model="register_email" placeholder="Email">
-            <input type="text" v-model="register_address" placeholder="Địa chỉ">
-            <input type="text" v-model="register_phone" placeholder="Số điện thoại">
-            <button id="register_button" type="button" @click="handleSubmit()"> {{ pageTitle }} </button>
+            <input type="text" v-model="email" placeholder="Email">
+            <input type="password" v-model="password" placeholder="Mật khẩu">
+            <input type="password" v-model="password_repeat" placeholder="Nhập lại mật khẩu">
+            <button id="register_button" type="button" @click="registerSubmit"> {{ pageTitle }} </button>
+            <!-- <p v-if="msg">{{ msg }}</p> -->
             <div class="sign-up">
               <p>Bạn đã có tài khoản?</p>
               <router-link :to="{ name: 'Login' }"> Đăng nhập ngay </router-link>
@@ -24,20 +22,29 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      pageTitle: 'Đăng ký',
-      register_user: '',
-      register_password: '',
-      register_password_repeat: '',
-      register_email: '',
-      register_address: '',
-      register_phone: '',
+      pageTitle: 'Đăng ký',   
+      email: '',
+      password: '',       
+      password_repeat: '',
+      apiUrl: 'http://localhost:3333/'
     }
   },
   methods: {
-
+    registerSubmit() {
+      const register = {
+        email: this.email,
+        password: this.password
+      }
+      axios.post(this.apiUrl + 'auth/register', register)
+      .then(response => {
+        console.log(response);
+      });
+    }
   }
 }
 </script>

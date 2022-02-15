@@ -13,6 +13,8 @@ import "./assets/css/style.css";
 import HeaderNavbar from "./components/Header.vue";
 import FooterMenu from "./components/Footer.vue";
 import FilmStreaming from "./views/Film_streaming.vue";
+import HeaderAdmin from "./admin/components/Header.vue";
+import SideBar from "./admin/components/Sidebar.vue";
 
 // BootstrapVue
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
@@ -38,6 +40,8 @@ Vue.component("FooterMenu", FooterMenu);
 Vue.component("FilmStreaming", FilmStreaming);
 Vue.component("VueSlickCarousel", VueSlickCarousel);
 Vue.use(Embed);
+Vue.component("HeaderAdmin", HeaderAdmin);
+Vue.component("SideBar", SideBar);
 
 
 // This callback runs before every route change, including on page load.
@@ -125,6 +129,7 @@ apiUrl.install = function() {
 };
 
 Vue.use(apiUrl);
+
 
 new Vue({
   el: "#app",

@@ -3,5 +3,12 @@ export default {
   list: [],
   slide: [],
   listByType: null,
-  detail: null
+  detail: null,
+
+  getDefaultState() {
+    return {
+      token: '',
+      user: {}
+    };
+  }
 };

@@ -4,6 +4,10 @@ import Register from "../views/Register.vue";
 import Home from "../views/Home.vue";
 import List from "../views/List.vue";
 import FilmDetail from "../views/Film_detail.vue";
+import DashBoard from "../admin/Dashboard.vue";
+import AdminFilms from "../admin/Films.vue";
+import AdminFilmType from "../admin/Type.vue";
+import AdminLogin from "../admin/Login.vue";
 import Vue from 'vue';
 
 Vue.use(VueRouter);
@@ -97,6 +101,80 @@ const routes = [
         {
           property: "og:description",
           content: "Hệ thống chi tiết trang xem phim trực tuyến"
+        }
+      ]
+    }
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: DashBoard,
+    meta: {
+      title: "Admin | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content: "Hệ thống admin trang xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content: "Hệ thống admin trang xem phim trực tuyến"
+        }
+      ]
+    }
+  },
+  {
+    path: "/admin/films",
+    name: "AdminFilms",
+    component: AdminFilms,
+    meta: {
+      title: "Quản lý phim | Admin | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content: "Hệ thống quản lý phim trang admin xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content: "Hệ thống quản lý phim trang admin xem phim trực tuyến"
+        }
+      ]
+    }
+  },
+  {
+    path: "/admin/type",
+    name: "AdminFilmType",
+    component: AdminFilmType,
+    meta: {
+      title: "Quản lý thể loại | Admin | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content:
+            "Hệ thống quản lý thể loại phim trang admin xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content:
+            "Hệ thống quản lý thể loại phim trang admin xem phim trực tuyến"
+        }
+      ]
+    }
+  },
+  {
+    path: "/admin/login",
+    name: "AdminLogin",
+    component: AdminLogin,
+    meta: {
+      title: "Đăng nhập | Admin | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content: "Hệ thống đăng nhập trang admin xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content: "Hệ thống đăng nhập trang admin xem phim trực tuyến"
         }
       ]
     }

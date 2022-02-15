@@ -35,5 +35,18 @@ export default {
     axios.get(`http://localhost:3333/films/film-information/${detail}`).then(response => {
       commit("setDetail", response.data);
     });
+  },
+
+  ////////// LOGIN & REGISTER //////////
+
+  login: ({ commit, dispatch }, { token, user }) => {
+    commit('setToken', token);
+    commit('setUser', user);
+    // set auth header
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  },
+
+  logout: ({ commit }) => {
+    commit('RESET', '');
   }
 };

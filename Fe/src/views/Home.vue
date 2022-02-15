@@ -47,7 +47,7 @@
               <span v-if='listFilm.type_id == listType.id'>
                 <a :href="$baseUrl.url + 'phim/' + removeAccents(listType.name) + '-' + listType.id + '/' + listFilm.id" target="_self">
                   <div class="film-list-img">
-                    <img :src="listFilm.image">
+                    <img :src="$apiUrl.api + 'profiles/' + listFilm.image">
                   </div>
                   <div class="film-list-info">
                     <p class="film-list-title"> {{ listFilm.name }} </p>
@@ -76,7 +76,7 @@
                   <a :href="$baseUrl.url + 'phim/' + removeAccents(newFilmType.name) + '-' + newFilmType.id + '/' + newFilmItem.id" target="_self">
                     <div class="new-film-items"> 
                       <div class="new-film-img">
-                        <img :src="newFilmItem.image" alt="new film image">
+                        <img :src="$apiUrl.api + 'profiles/' + newFilmItem.image" alt="new film image">
                       </div>
                       <div class="new-film-info">
                         <p class="new-film-title"> {{ newFilmItem.name }} </p>

@@ -47,6 +47,52 @@ export default {
     height: 100% !important;
   }
 
+  .b-sidebar {
+    top: 8.5% !important;
+    width: 250px;
+  }
+
+  .table-responsive {
+    overflow-x: scroll;
+    overflow-y: auto;
+    max-height: 410px;
+    min-height: 410px;
+  }
+
+  .table-responsive table {
+    width: 150%;
+  }
+
+  .table-responsive table thead tr th {
+    padding: 10px;
+  }
+
+  .table-responsive table thead tr th div {
+    font-family: 'Roboto', Arial;
+    color: rgb(120, 120, 120);
+  }
+
+  .table-img {
+    width: 55px;
+    height: 60px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .table-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  button.close {
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+    width: 30px;
+    height: 30px;
+  }
+
   @media screen and (min-width: 996px) {
     .navbar-expand-lg .navbar-nav .dropdown-menu {
       right: 0 !important;
