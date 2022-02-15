@@ -29,7 +29,7 @@
               </router-link> -->
               <a :href="$baseUrl.url + 'phim/' + title + '/' + listItem.id">
                 <div class="list-items-img">
-                  <img :src="listItem.image" alt="film image" />
+                  <img :src="$apiUrl.api + 'profiles/' + listItem.image" alt="film image" />
                 </div>
                 <div class="list-items-info">
                   <p class="list-items-title">{{ listItem.name }}</p>
