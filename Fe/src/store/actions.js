@@ -1,52 +1,55 @@
 import axios from "axios";
+import { API_URL } from "../constant/api";
 
 export default {
   getNavbar: ({ commit }) => {
-    axios.get("http://localhost:3333/type/list").then(response => {
+    axios.get(`${API_URL}type/list`).then(response => {
       commit("setNavbar", response.data);
     });
   },
 
   getList: ({ commit }) => {
-    axios.get("http://localhost:3333/films/list").then(response => {
+    axios.get(`${API_URL}films/list`).then(response => {
       commit("setList", response.data);
     });
   },
 
   getSlide: ({ commit }) => {
-    axios.get("http://localhost:3333/films/films-by-type/1").then(response => {
+    axios.get(`${API_URL}films/films-by-type/1`).then(response => {
       commit("setSlide", response.data);
     });
   },
 
   getListByType: ({ commit }, listByTypeID) => {
-    axios.get(`http://localhost:3333/films/films-by-type/${listByTypeID}`).then(response => {
+    axios.get(`${API_URL}films/films-by-type/${listByTypeID}`).then(response => {
       commit("setListByType", response.data);
     });
   },
 
   getDetail: ({ commit }, detail) => {
-    axios.get(`http://localhost:3333/films/film-information/${detail}`).then(response => {
+    axios.get(`${API_URL}films/film-information/${detail}`).then(response => {
       commit("setDetail", response.data);
     });
   },
 
   getStream: ({ commit }, stream) => {
-    axios.get(`http://localhost:3333/films/film-information/${detail}`).then(response => {
+    axios.get(`${API_URL}films/film-information/${detail}`).then(response => {
       commit("setDetail", response.data);
     });
   },
 
-  ////////// LOGIN & REGISTER //////////
-
-  login: ({ commit, dispatch }, { token, user }) => {
+  login: ({ commit }, token) => {
     commit('setToken', token);
-    commit('setUser', user);
     // set auth header
-    Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   },
 
   logout: ({ commit }) => {
-    commit('RESET', '');
+    commit('resetAuth');
+    delete axios.defaults.headers.common['Authorization'];
+  },
+  setTokenAdmin: ({commit}, token) => {
+    commit('setTokenAdmin', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 };

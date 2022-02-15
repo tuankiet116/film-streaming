@@ -25,29 +25,41 @@
 
 <script>
 import axios from 'axios'
-
+import { API_URL } from '../constant/api'
 export default {
   data () {
     return {
       pageTitle: 'Đăng nhập',
       email: '',
       password: '',
-      apiUrl: 'http://localhost:3333/'
+      API_URL: API_URL
     }
   },
   methods: {
     loginSubmit() {
+      console.log(API_URL)
       const login = {
         email: this.email,
         password: this.password
       }
-      axios.post(this.apiUrl + 'auth/login', login)
-      .then(this.checkLogin(response.data, response.status))
+      axios.post(this.API_URL + 'auth/login', login)
+      .then(response => {
+        this.checkLogin(response.data, response.status);
+      })
     },
-
     checkLogin(data, status) {
-      console.log(data);
-      console.log(status);
+      if (status == 200 && data.code == 200) {
+        this.$store.dispatch('login', data.data.token);
+        alert('Login successful');
+        this.$router.push({name: 'Home'});
+        return;
+      }
+
+      if (status = 301) {
+        alert('Bạn đã đăng nhập rồi');
+        this.$router.push({name: 'Home'});
+      }
+      alert('Thằng thất bại :)');
     }
   }
 }

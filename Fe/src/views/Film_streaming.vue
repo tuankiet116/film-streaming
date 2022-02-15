@@ -7,18 +7,20 @@
         controls
         preload="auto"
         poster="../assets/images/spider-man-nwh-2.jpg">
-        <source :src="$apiUrl.api + 'films/stream/' + source" type="video/mp4" />
+        <source :src="API_URL + 'films/stream/' + source" type="video/mp4" />
       </video>
     </div>
   </div>
 </template>
 
 <script>
+import { API_URL } from "../constant/api"
+
 export default {
   props: ['source', 'img'],
   data() {
     return {
-      
+      API_URL: API_URL
     };
   },
   methods: {

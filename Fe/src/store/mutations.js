@@ -29,7 +29,10 @@ export default {
     state.user = user;
   },
 
-  reset: state => {
-    Object.assign(state, getDefaultState());
+  resetAuth: state => {
+    state.token = '';
+  },
+  setTokenAdmin: (state, token) => {
+    state.token = token;
   }
 };

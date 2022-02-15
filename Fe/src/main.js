@@ -106,7 +106,7 @@ const baseUrl = {
   url: "http://localhost:8080/"
 };
 
-baseUrl.install = function() {
+baseUrl.install = function () {
   Object.defineProperty(Vue.prototype, "$baseUrl", {
     get() {
       return baseUrl;
@@ -115,21 +115,6 @@ baseUrl.install = function() {
 };
 
 Vue.use(baseUrl);
-
-const apiUrl = {
-  api: "http://localhost:3333/"
-}
-
-apiUrl.install = function() {
-  Object.defineProperty(Vue.prototype, "$apiUrl", {
-    get() {
-      return apiUrl;
-    }
-  });
-};
-
-Vue.use(apiUrl);
-
 
 new Vue({
   el: "#app",

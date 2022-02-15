@@ -29,7 +29,7 @@
               </router-link> -->
               <a :href="$baseUrl.url + 'phim/' + title + '/' + listItem.id">
                 <div class="list-items-img">
-                  <img :src="$apiUrl.api + 'profiles/' + listItem.image" alt="film image" />
+                  <img :src=" API_URL + 'profiles/' + listItem.image" alt="film image" />
                 </div>
                 <div class="list-items-info">
                   <p class="list-items-title">{{ listItem.name }}</p>
@@ -48,11 +48,13 @@
 <script>
 import HeaderNavbar from "../components/Header.vue";
 import FooterMenu from "../components/Footer.vue";
+import { API_URL } from "../constant/api"
 
 export default {
   props: ['title'],
   data() {
     return {
+      API_URL: API_URL,
       components: { HeaderNavbar, FooterMenu },
     };
   },
