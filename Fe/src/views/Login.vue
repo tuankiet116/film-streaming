@@ -42,7 +42,12 @@ export default {
         password: this.password
       }
       axios.post(this.apiUrl + 'auth/login', login)
-      .then(response => console.log(response))
+      .then(this.checkLogin(response.data, response.status))
+    },
+
+    checkLogin(data, status) {
+      console.log(data);
+      console.log(status);
     }
   }
 }
