@@ -42,8 +42,30 @@ export default {
       }
       axios.post(this.apiUrl + 'auth/register', register)
       .then(response => {
-        console.log(response);
-      });
+        this.checkRegister(response.data, response.status);
+      })
+    },
+    checkRegister(data, status) {
+      if (status == 200 && data.code == 200) {
+        alert('Đăng ký thành công!');
+        this.$router.push({name: 'Login'});
+        return;
+      }
+      if (status == 500 && data.data.errors.msg.id == 1) {
+        alert('Email không đúng định dạng!');
+        return;
+      }
+      if (status == 500 && data.data.errors.msg.id == 5) {
+        alert('Email đã tồn tại!');
+        return;
+      }
+      if (status == 500 && data.data.errors.msg.id == 3) {
+        alert('Mật khẩu không đúng định dạng!');
+        return;
+      }
+      else {
+        alert('Đăng ký thất bại!');
+      }
     }
   }
 }

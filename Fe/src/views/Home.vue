@@ -2,7 +2,7 @@
   <div id="home">
   
     <!------ Header ------>
-    <header-navbar :nav="navbar"></header-navbar>
+    <header-navbar :nav="navbar" :token="getToken"></header-navbar>
 
     <!------ Slick slider ------>
     <VueSlickCarousel v-bind="slickOptions">
@@ -157,7 +157,6 @@ export default {
   },
   computed: {
     navbar() {
-      console.log(this.$store.state.navbar)
       return this.$store.state.navbar;
     },
     list() {
@@ -165,6 +164,9 @@ export default {
     },
     listByType() {
       return this.$store.state.listByType;
+    },
+    getToken() {
+      return this.$store.getters.getToken;
     }
   },
   mounted() {

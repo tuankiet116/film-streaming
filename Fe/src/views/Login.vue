@@ -26,6 +26,7 @@
 <script>
 import axios from 'axios'
 import { API_URL } from '../constant/api'
+
 export default {
   data () {
     return {
@@ -37,7 +38,6 @@ export default {
   },
   methods: {
     loginSubmit() {
-      console.log(API_URL)
       const login = {
         email: this.email,
         password: this.password
@@ -50,7 +50,7 @@ export default {
     checkLogin(data, status) {
       if (status == 200 && data.code == 200) {
         this.$store.dispatch('login', data.data.token);
-        alert('Login successful');
+        alert('Đăng nhập thành công!');
         this.$router.push({name: 'Home'});
         return;
       }
@@ -59,7 +59,7 @@ export default {
         alert('Bạn đã đăng nhập rồi');
         this.$router.push({name: 'Home'});
       }
-      alert('Thằng thất bại :)');
+      alert('Đăng nhập thất bại!');
     }
   }
 }

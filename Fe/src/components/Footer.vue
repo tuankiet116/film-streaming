@@ -15,14 +15,14 @@
         </b-col>
 
         <b-col
-          v-for="footer in footerMenu"
-          :key="footer.footerId"
-          lg="3"
-          md="3"
+          v-for="footer in navbar.data"
+          :key="footer.id"
+          lg="2"
+          md="2"
           sm="12"
         >
-          <p class="footer-title">{{ footer.footerTitle }}</p>
-          <ul class="footer-list">
+          <p class="footer-title">{{ footer.name }}</p>
+          <!-- <ul class="footer-list">
             <li
               v-for="footerItem in footer.footerItems"
               :key="footerItem.footerItemId"
@@ -31,7 +31,7 @@
                 {{ footerItem.footerItemTitle }}
               </a>
             </li>
-          </ul>
+          </ul> -->
         </b-col>
 
         <b-col lg="3" md="3" sm="12" class="footer-contact-content">
@@ -58,11 +58,16 @@
 <script>
 export default {
   data() {
-    return {
-      footerMenu: []
-    };
+    return {}
   },
- 
+  computed: {
+    navbar() {
+      return this.$store.state.navbar;
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getNavbar');
+  }
 };
 </script>
 
@@ -124,38 +129,4 @@ export default {
     font-weight: bold;
     margin-bottom: 0;
   }
-
-  /* @media screen and (max-width: 756px) {
-    #footer .footer-logo {
-      margin-left: 27vw;
-    }
-
-    #footer .footer-intro {
-      text-align: center;
-    }
-
-    #footer .footer-title {
-      text-align: center;
-    }
-
-    #footer .footer-list {
-      position: relative;
-      left: 32%;
-    }
-
-    #footer .footer-contact-content .footer-contact .footer-contact-icon {
-      margin-left: 28vw;
-    }
-  }
-
-  @media screen and (max-width: 321px) {
-    #footer .footer-contact-content .footer-contact .footer-contact-icon {
-      margin-left: 20vw;
-    }
-
-    #footer .footer-list {
-      left: 28%;
-    }
-  } */
-
 </style>

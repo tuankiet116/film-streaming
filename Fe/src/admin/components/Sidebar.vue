@@ -61,7 +61,7 @@ export default {
   #sidebar .sidebar-content {
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color: rgb(53, 57, 61);
     position: relative;
     box-shadow: 5px 5px 10px 3px rgba(30, 30, 30, 0.25);
   }
@@ -71,14 +71,14 @@ export default {
   }
 
   #sidebar .sidebar-content .nav-pills .nav-item:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(120, 120, 120);
     transition: .3s;
   }
 
 
   #sidebar .sidebar-content .nav-pills .nav-item .nav-link {
     border-radius: 0 !important;
-    color: rgb(13, 202, 240);
+    color: white;
     padding-top: 12px;
     padding-bottom: 12px;
   }

@@ -4,11 +4,6 @@ export default {
   slide: [],
   listByType: null,
   detail: null,
-
-  getDefaultState() {
-    return {
-      token: '',
-      user: {}
-    };
-  }
+  token: '',
+  adminFilmList: []
 };

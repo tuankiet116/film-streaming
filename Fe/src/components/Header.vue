@@ -45,8 +45,14 @@
                 <b-icon icon="person-circle" class="header-user-icon"></b-icon>
               </em>
             </template>
-            <b-dropdown-item :href="$baseUrl.url + 'dang-nhap'">Đăng nhập</b-dropdown-item>
-            <b-dropdown-item :href="$baseUrl.url + 'dang-ky'">Ðang ký</b-dropdown-item>
+            <span v-if="getToken != ''">
+              <b-dropdown-item href="#">Thông tin tài khoản</b-dropdown-item>
+              <b-dropdown-item @click="signOut">Đăng xuất</b-dropdown-item>
+            </span>
+            <span v-else>
+              <b-dropdown-item :href="$baseUrl.url + 'dang-nhap'">Đăng nhập</b-dropdown-item>
+              <b-dropdown-item :href="$baseUrl.url + 'dang-ky'">Đăng ký</b-dropdown-item>
+            </span>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -58,7 +64,7 @@
 // import EventService from '../services/EventService.js'
 
 export default {
-  props: ['nav'],
+  props: ['nav', 'getToken'],
   data() {
     return {
 
@@ -70,6 +76,12 @@ export default {
              .replace(/[\u0300-\u036f]/g, '')
              .replace(/đ/g, 'd').replace(/Đ/g, 'D')
              .replace(/\s+/g, '-').toLowerCase();
+    },
+
+    signOut() {
+      this.$store.dispatch('logout');
+      alert('Đăng xuất thành công!');
+      location.reload();
     }
   }
   // created() {

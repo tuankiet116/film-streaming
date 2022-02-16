@@ -21,9 +21,11 @@ export default {
   },
 
   getListByType: ({ commit }, listByTypeID) => {
-    axios.get(`${API_URL}films/films-by-type/${listByTypeID}`).then(response => {
-      commit("setListByType", response.data);
-    });
+    axios
+      .get(`${API_URL}films/films-by-type/${listByTypeID}`)
+      .then(response => {
+        commit("setListByType", response.data);
+      });
   },
 
   getDetail: ({ commit }, detail) => {
@@ -39,17 +41,24 @@ export default {
   },
 
   login: ({ commit }, token) => {
-    commit('setToken', token);
+    commit("setToken", token);
     // set auth header
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   },
 
   logout: ({ commit }) => {
-    commit('resetAuth');
-    delete axios.defaults.headers.common['Authorization'];
+    commit("resetAuth");
+    delete axios.defaults.headers.common["Authorization"];
   },
-  setTokenAdmin: ({commit}, token) => {
-    commit('setTokenAdmin', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+  getTokenAdmin: ({ commit }, token) => {
+    commit("setTokenAdmin", token);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  },
+
+  getAdminFilmList: ({ commit }) => {
+    axios.get(`${API_URL}admin/film/list`).then(response => {
+      commit("setAdminFilmList", response.data);
+    });
   }
 };

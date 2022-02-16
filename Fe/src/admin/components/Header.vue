@@ -1,6 +1,6 @@
 <template>
   <div id="head">
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
         <b-navbar-brand href="#">Admin</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

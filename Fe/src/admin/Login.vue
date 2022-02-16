@@ -7,13 +7,11 @@
         label="Tài khoản"
         label-for="admin-user"
         valid-feedback="Tài khoản hợp lệ!"
-        :invalid-feedback="invalidFeedback"
-        :state="state"
       >
         <b-form-input
           class="mt-2"
           id="admin-user"
-          v-model="user"
+          v-model="email"
           trim
         ></b-form-input>
       </b-form-group>
@@ -41,10 +39,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { API_URL } from '../constant/api'
+
 export default {
   data() {
     return {
-        user: '',
+        API_URL,
+        email: '',
         password: ''
     };
   },
@@ -60,7 +62,30 @@ export default {
     }
   },
   methods: {
+    adminSubmit() {
+      const admin = {
+        email: this.email,
+        password: this.password
+      }
+      axios.post(this.API_URL + 'admin/auth/login', admin)
+      .then(response => {
+        this.checkAdmin(response.data, response.status);
+      })
+    },
+    checkAdmin(data, status) {
+      if (status == 200 && data.code == 200) {
+        this.$store.dispatch('getTokenAdmin', data.data.token);
+        alert('Đăng nhập thành công!');
+        this.$router.push({name: 'AdminFilms'});
+        return;
+      }
 
+      if (status = 301) {
+        alert('Bạn đã đăng nhập rồi');
+        this.$router.push({name: 'Admin'});
+      }
+      alert('Đăng nhập thất bại!');
+    }
   }
 };
 </script>

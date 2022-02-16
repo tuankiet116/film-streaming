@@ -30,9 +30,16 @@ export default {
   },
 
   resetAuth: state => {
-    state.token = '';
+    state.token = "";
   },
+
   setTokenAdmin: (state, token) => {
     state.token = token;
+  },
+
+  ////////// ADMIN //////////
+
+  setAdminFilmList: (state, adminFilmList) => {
+    state.adminFilmList = adminFilmList;
   }
 };

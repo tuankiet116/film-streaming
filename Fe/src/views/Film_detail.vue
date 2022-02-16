@@ -2,15 +2,13 @@
   <div id="film_detail">
     <header-navbar :nav="navbar"></header-navbar>
       <div class="film-detail-image">
-        <!-- <img :src="detail.data.image"> -->
-        <img src="../assets/images/spider-man-nwh-2.jpg">
+        <img :src="API_URL + 'profiles/' + detail.data.image">
         <div class="film-detail-background">
           <b-container>
             <b-row>
               <b-col lg="4" md="6" sm="12">
                 <div class="film-detail-img">
-                  <!-- <img :src="detail.data.image" alt="Film image"> -->
-                  <img src="../assets/images/spider-man-nwh-2.jpg">
+                  <img :src="API_URL + 'profiles/' + detail.data.image">
                 </div>
               </b-col>
 
@@ -69,8 +67,7 @@
               <div class="film-detail-same-items">
                 <a :href="$baseUrl.url + 'phim/' + title + '/' + same.id">
                   <div class="film-detail-same-img">
-                    <img src="../assets/images/spider-man-nwh-2.jpg" alt="same film type">
-                    <!-- <img :src="same.image" alt="same film type"> -->
+                    <img :src="API_URL + 'profiles/' + same.image" alt="same film type">
                   </div>
                   <div class="film-detail-same-info">
                     <p class="film-detail-same-title"> {{ same.name }} </p>
@@ -91,11 +88,13 @@
 import HeaderNavbar from "../components/Header.vue";
 import FooterMenu from "../components/Footer.vue";
 import FilmStreaming from "./Film_streaming.vue";
+import { API_URL } from '../constant/api'
 
 export default {
   props: ['title', 'filmDetail'],
   data() {
     return {
+      API_URL: API_URL,
       components: { 
         HeaderNavbar, 
         FooterMenu, 
