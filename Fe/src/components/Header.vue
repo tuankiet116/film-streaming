@@ -45,7 +45,7 @@
                 <b-icon icon="person-circle" class="header-user-icon"></b-icon>
               </em>
             </template>
-            <span v-if="getToken != ''">
+            <span v-if="token != ''">
               <b-dropdown-item href="#">Thông tin tài khoản</b-dropdown-item>
               <b-dropdown-item @click="signOut">Đăng xuất</b-dropdown-item>
             </span>
@@ -64,7 +64,7 @@
 // import EventService from '../services/EventService.js'
 
 export default {
-  props: ['nav', 'getToken'],
+  props: ['nav', 'token'],
   data() {
     return {
 
@@ -80,8 +80,20 @@ export default {
 
     signOut() {
       this.$store.dispatch('logout');
-      alert('Đăng xuất thành công!');
-      location.reload();
+      // alert('Đăng xuất thành công!');
+      this.$swal({
+        icon: 'question',
+        text: 'Bạn có muốn đăng xuất?',
+        showDenyButton: true,
+        confirmButtonText: 'Đăng xuất',
+        denyButtonText: `Hủy`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        } else if (result.isDenied) {
+         
+        }
+      })
     }
   }
   // created() {

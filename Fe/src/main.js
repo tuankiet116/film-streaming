@@ -24,6 +24,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
 
+// VueSweetalert2
+
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 
 const router = new VueRouter({
   mode: "history",
@@ -33,6 +38,7 @@ const router = new VueRouter({
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueMeta);
+Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("HeaderNavbar", HeaderNavbar);
