@@ -1,6 +1,6 @@
 <template>
   <div id="film_detail">
-    <header-navbar :nav="navbar"></header-navbar>
+    <header-navbar :nav="navbar" :token="tokenUser"></header-navbar>
       <div class="film-detail-image">
         <img :src="API_URL + 'profiles/' + detail.data.image">
         <div class="film-detail-background">
@@ -16,7 +16,7 @@
                 <div class="film-detail-info"> 
                   <h1> {{ detail.data.name }} </h1>
                   <div class="film-detail-btn">
-                    <button type="button" class="film-detail-trailer-btn"> 
+                    <button @click="moveTrailer()" type="button" class="film-detail-trailer-btn"> 
                       <b-icon icon="film"></b-icon>
                       Trailer 
                     </button>
@@ -48,11 +48,13 @@
         <video-embed :src="detail.data.trailer" class="film-detail-trailer-video"></video-embed>
       </div>
 
-      <component 
-        :is="cmp"
-        :source="detail.data.id"
-        :img="detail.data.image">
-      </component>
+      <div class="movie">
+        <component 
+          :is="cmp"
+          :source="detail.data.id"
+          :img="detail.data.image">
+        </component>
+      </div>
 
       <div v-if="comments">
         <div class="fb-comments" id="show" data-href="http://localhost:8080/" data-width="500" data-numposts="5"></div>
@@ -101,7 +103,8 @@ export default {
         'film-streaming':FilmStreaming
       },
       cmp: '',
-      comments: false
+      comments: false,
+      tokenUser: localStorage.getItem('token')
     };
   },
   computed: {
@@ -127,7 +130,13 @@ export default {
     uploadStream(item) {
       this.cmp = item;
       this.comments = !this.comments;
-      console.log(this.comments);
+      let el = this.$el.getElementsByClassName('movie')[0];
+      el.scrollIntoView({behavior: 'smooth'});
+    },
+
+    moveTrailer() {
+      let trailer = this.$el.getElementsByClassName('film-detail-trailer')[0];
+      trailer.scrollIntoView({behavior: 'smooth'});
     }
   }
 };

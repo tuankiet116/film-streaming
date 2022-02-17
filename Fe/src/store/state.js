@@ -4,6 +4,5 @@ export default {
   slide: [],
   listByType: null,
   detail: null,
-  token: '',
   adminFilmList: []
 };

@@ -11,7 +11,7 @@
             <input type="password" v-model="password" placeholder="Mật khẩu">
             <input type="password" v-model="password_repeat" placeholder="Nhập lại mật khẩu">
             <button id="register_button" type="button" @click="registerSubmit"> {{ pageTitle }} </button>
-            <!-- <p v-if="msg">{{ msg }}</p> -->
+            <p v-if="msg" style="color: rgb(212, 39, 47);">{{ msg }}</p>
             <div class="sign-up">
               <p>Bạn đã có tài khoản?</p>
               <router-link :to="{ name: 'Login' }"> Đăng nhập ngay </router-link>
@@ -31,40 +31,57 @@ export default {
       email: '',
       password: '',       
       password_repeat: '',
+      msg: '',
       apiUrl: 'http://localhost:3333/'
     }
   },
   methods: {
     registerSubmit() {
-      const register = {
-        email: this.email,
-        password: this.password
-      }
-      axios.post(this.apiUrl + 'auth/register', register)
-      .then(response => {
-        this.checkRegister(response.data, response.status);
-      })
-    },
-    checkRegister(data, status) {
-      if (status == 200 && data.code == 200) {
-        alert('Đăng ký thành công!');
-        this.$router.push({name: 'Login'});
-        return;
-      }
-      if (status == 500 && data.data.errors.msg.id == 1) {
-        alert('Email không đúng định dạng!');
-        return;
-      }
-      if (status == 500 && data.data.errors.msg.id == 5) {
-        alert('Email đã tồn tại!');
-        return;
-      }
-      if (status == 500 && data.data.errors.msg.id == 3) {
-        alert('Mật khẩu không đúng định dạng!');
-        return;
+      if (this.password != this.password_repeat) {
+        return this.msg = "Mật khẩu không trùng khớp"
       }
       else {
-        alert('Đăng ký thất bại!');
+        const register = {
+          email: this.email,
+          password: this.password
+        }
+        axios.post(this.apiUrl + 'auth/register', register)
+        .then(response => {
+          this.checkRegister(response.data, response.status);
+        }).catch(err => {
+          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 1) {
+          //   return this.msg = "Email không đúng định dạng"
+          // }
+          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 5) {
+          //   return this.msg = "Email đã tồn tại"
+          // }
+          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 3) {
+          //   return this.msg = "Mật khẩu không đúng định dạng"
+          // }
+          if (err.response.status == 500) {
+            this.$swal({
+              icon: "error",
+              text: "Đăng ký thất bại!",
+              confirmButtonText: "Đóng"
+            });
+            return this.msg = "";
+          }
+        });
+      }
+    },
+
+    checkRegister(data, status) {
+      if (status == 200 && data.code == 200) {
+        this.$swal({
+          icon: "success",
+          text: "Đăng ký thành công!",
+          confirmButtonText: "Đóng"
+        }).then(result => {
+          if (result.isConfirmed) {
+            this.$router.push({ name: "Login" });
+          } 
+        });
+        return;
       }
     }
   }

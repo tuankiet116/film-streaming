@@ -2,7 +2,7 @@
   <div id="home">
   
     <!------ Header ------>
-    <header-navbar :nav="navbar" :token="getToken"></header-navbar>
+    <header-navbar :nav="navbar" :token="tokenUser"></header-navbar>
 
     <!------ Slick slider ------>
     <VueSlickCarousel v-bind="slickOptions">
@@ -153,6 +153,7 @@ export default {
           },
         ]
       },
+      tokenUser: localStorage.getItem('token')
     }
   },
   computed: {
@@ -164,9 +165,6 @@ export default {
     },
     listByType() {
       return this.$store.state.listByType;
-    },
-    getToken() {
-      return this.$store.getters.getToken;
     }
   },
   mounted() {

@@ -36,6 +36,7 @@
 
           <!-- Main table element -->
           <b-table
+            class="table-types"
             responsive
             :items="items"
             :fields="fields"
@@ -51,27 +52,16 @@
             small
             @filtered="onFiltered"
           >
-            <template #cell(image)="row">
-              {{ row.value.image }}
-              <div class="table-img">
-                <img src="../assets/images/spider-man-nwh-2.jpg" />
-                <!-- <img :src="row.value.image"> -->
-              </div>
-            </template>
-
             <template #cell(actions)="row">
               <button
                 class="panel-show"
-                @click="info(row.item, row.index, $event.target)"
+                @click="showEdit=true; showTypeInfo(row.item.id)"
               >
                 <b-icon icon="pencil-fill" class="panel-show-icon"></b-icon>
               </button>
-              <button class="panel-show panel-trash">
+              <button class="panel-show panel-trash" @click="deleteRow(row.item.id)">
                 <b-icon icon="trash-fill" class="panel-show-icon"></b-icon>
               </button>
-              <!-- <b-button size="sm" @click="row.toggleDetails">
-                {{ row.detailsShowing ? "Hide" : "Show" }} Details
-              </b-button> -->
             </template>
 
             <template #row-details="row">
@@ -114,10 +104,8 @@
 
           <!-- Info modal -->
           <b-modal
-            :id="infoModal.id"
-            :title="infoModal.title"
-            ok-only
-            @hide="resetInfoModal"
+            v-model="showEdit" 
+            title="Cập nhật thể loại"
           >
             <b-form-group
               class="mb-2"
@@ -128,13 +116,41 @@
                 id="film-name"
                 class="mt-1"
                 placeholder="Nhập tên thể loại phim"
+                :value="itemType.name"
                 trim
               ></b-form-input>
             </b-form-group>
 
-            <b-form-checkbox name="enable">
-              <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
-            </b-form-checkbox>
+            <div v-if="itemType.active">
+              <b-form-checkbox name="enable" value="1" checked="1">
+                <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
+              </b-form-checkbox>
+            </div>
+            <div v-else>
+              <b-form-checkbox name="enable">
+                <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
+              </b-form-checkbox>
+            </div>
+ 
+            <template #modal-footer>
+              <b-button
+                variant="primary"
+                size="sm"
+                class="float-right"
+              >
+              <!-- @click="updateTypes" -->
+                Cập nhật
+              </b-button>
+
+              <b-button
+                variant="danger"
+                size="sm"
+                class="float-right"
+                @click="showEdit=false"
+              >
+                Hủy
+              </b-button>
+            </template>
           </b-modal>
 
           <!-- Add modal -->
@@ -146,13 +162,14 @@
             >
               <b-form-input
                 id="film-name"
+                v-model="addTypeName"
                 class="mt-1"
                 placeholder="Nhập tên thể loại phim"
                 trim
               ></b-form-input>
             </b-form-group>
 
-            <b-form-checkbox name="enable">
+            <b-form-checkbox name="enable" @click="enableType">
               <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
             </b-form-checkbox>
 
@@ -161,7 +178,7 @@
                 variant="primary"
                 size="sm"
                 class="float-right"
-                @click="show=false"
+                @click="addTypes"
               >
                 Thêm mới
               </b-button>
@@ -185,108 +202,26 @@
 <script>
 import HeaderAdmin from "./components/Header.vue";
 import SideBar from "./components/Sidebar.vue";
+import axios from "axios";
+import { API_URL } from "../constant/api";
+
 export default {
   components: { HeaderAdmin, SideBar },
   data() {
     return {
+      API_URL,
+      msg: '',
+      addTypeName: '',
+      enableCheck: '',
       show: false,
-      items: [
-        {
-          active: true,
-          title: "Người Nhện: Không Còn Nhà",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        },
-        {
-          active: true,
-          title: "Venom 2: Đối Mặt Tử Thù",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        },
-        {
-          active: true,
-          title: "Biệt Đội Cảm Tử 2",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        },
-        {
-          active: true,
-          title: "Chủng Tộc Bất Tử",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        },
-        {
-          active: true,
-          title: "Ma Trận: Hồi Sinh",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        },
-        {
-          active: true,
-          title: "Đấu Trường Âm Nhạc 2",
-          type: "Phim mới",
-          source: "abc",
-          actor: "Tom Holland...",
-          trailer: "abc",
-          image: "",
-          description: "Mô tả phim người nhện"
-        }
-      ],
+      showEdit: false,
+      items: [],
+      itemType: [],
       fields: [
         {
-          key: "title",
+          key: "name",
           label: "Tên phim",
           sortDirection: "desc"
-        },
-        {
-          key: "type",
-          label: "Thể loại",
-          class: "text-center"
-        },
-        {
-          key: "source",
-          label: "Nguồn phim",
-          class: "text-center"
-        },
-        {
-          key: "actor",
-          label: "Diễn viên",
-          class: "text-center"
-        },
-        {
-          key: "trailer",
-          label: "Trailer",
-          class: "text-center"
-        },
-        {
-          key: "image",
-          label: "Ảnh",
-          class: "text-center"
-        },
-        {
-          key: "description",
-          label: "Mô tả",
-          class: "text-center"
         },
         {
           key: "active",
@@ -295,7 +230,7 @@ export default {
             return value ? "Kích hoạt" : "Vô hiệu";
           }
         },
-        { key: "actions", label: "Hành động" }
+        { key: "actions", label: "Hành động", class: "text-right" }
       ],
       totalRows: 1,
       currentPage: 1,
@@ -308,11 +243,13 @@ export default {
       filterOn: [],
       infoModal: {
         id: "info-modal",
-        title: "",
-        content: ""
+        title: "Sủa thể loại",
+        name: "",
+        source: ""
       },
       paddingLeft: "20.4%",
-      count: true
+      count: true,
+      tokenAdmin: localStorage.getItem('tokenAdmin')
     };
   },
   computed: {
@@ -333,10 +270,27 @@ export default {
       return this.paddingLeft;
     }
   },
-  mounted() {
-    // Set the initial number of items
-    this.totalRows = this.items.length;
-    this.$store.dispatch("getList");
+  created() {
+    if (this.tokenAdmin) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + this.tokenAdmin;
+    }
+    axios
+      .get(this.API_URL + "admin/type/list")
+      .then(res => {
+        if (res.data.data.count > 0) {
+          this.items = res.data.data.rows;
+        }
+      })
+      .catch(err => {
+        if (err.response.status == 401) {
+          alert("Bạn không có quyền truy cập!");
+          this.$router.push({
+            name: "AdminLogin"
+          });
+        }
+        location.reload();
+      });
   },
   methods: {
     info(item, index, button) {
@@ -359,6 +313,94 @@ export default {
       } else {
         (this.paddingLeft = "20.4%"), (this.count = !this.count);
       }
+    },
+    deleteRow(id) {
+      this.$swal({
+        icon: "question",
+        text: "Bạn có muốn xóa dữ liệu này?",
+        confirmButtonText: "Đồng ý",
+        showDenyButton: true,
+        denyButtonText: `Hủy`
+      }).then(result => {
+        if (result.isConfirmed) {
+          axios
+            .delete(this.API_URL + "admin/type/delete/" + id)
+            .then(response => {
+              this.$swal({
+                icon: "success",
+                text: "Xóa thành công",
+                confirmButtonText: "Đồng ý"
+              }).then(result => {
+                if (result.isConfirmed) {
+                  location.reload();
+                }
+              });
+            });
+        } else if (result.isDenied) {
+        }
+      });
+    },
+    enableType(checkbox) {
+      if (checkbox.checked) {
+        return this.enableCheck = 1
+      }
+      else {
+        return this.enableCheck = 0
+      }
+    },
+    addTypes() {
+      if (this.addTypeName == "") {
+        return this.msg = "Tên thể loại không được để trống";
+      } else {    
+
+        const types = {
+          name: this.addTypeName,
+          active: this.enableCheck
+        };
+
+        axios
+          .post(this.API_URL + "admin/type/create", types)
+          .then(response => {
+            this.checkAddTypes(response.data, response.status);
+            console.log(response);
+          })
+          .catch(err => {
+            if (err.response.status == 500) {
+              this.$swal({
+                icon: "error",
+                text: "Thêm mới thất bại!",
+                confirmButtonText: "Đóng"
+              });
+              return (this.msg = "");
+            }
+          });
+      }
+    },
+
+    checkAddTypes(data, status) {
+      if (status == 200 && data.code == 200) {
+        this.$swal({
+          icon: "success",
+          text: "Thêm mới thành công!",
+          confirmButtonText: "Đóng"
+        }).then(result => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
+        });
+        return;
+      }
+    },
+
+    showTypeInfo(id) {
+      axios
+      .get(this.API_URL + "admin/type/show/" + id)
+      .then(res => {
+        this.itemType = res.data.data;   
+      })
+      .catch(err => {
+        
+      });
     }
   }
 };

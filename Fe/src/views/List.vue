@@ -1,6 +1,6 @@
 <template>
   <div id="list">
-    <header-navbar :nav="navbar"></header-navbar>
+    <header-navbar :nav="navbar" :token="tokenUser"></header-navbar>
     <div class="list-container">  
       <span v-for="listTitle in navbar.data" :key="listTitle.id">
         <h1 v-if="id == listTitle.id">
@@ -56,6 +56,7 @@ export default {
     return {
       API_URL: API_URL,
       components: { HeaderNavbar, FooterMenu },
+      tokenUser: localStorage.getItem('token')
     };
   },
   created() {

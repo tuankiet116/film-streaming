@@ -21,21 +21,21 @@ export default {
 
   ////////// LOGIN & REGISTER //////////
 
-  setToken: (state, token) => {
-    state.token = token;
-  },
+  // setToken: (state, token) => {
+  //   state.token = token;
+  // },
 
-  setUser: (state, user) => {
-    state.user = user;
-  },
+  // setUser: (state, user) => {
+  //   state.user = user;
+  // },
 
-  resetAuth: state => {
-    state.token = "";
-  },
+  // resetAuth: state => {
+  //   state.token = "";
+  // },
 
-  setTokenAdmin: (state, token) => {
-    state.token = token;
-  },
+  // setTokenAdmin: (state, token) => {
+  //   state.token = token;
+  // },
 
   ////////// ADMIN //////////
 

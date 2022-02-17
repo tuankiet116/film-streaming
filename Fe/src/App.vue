@@ -60,7 +60,15 @@ export default {
   }
 
   .table-responsive table {
-    width: 150%;
+    width: 180%;
+  }
+
+  .table-types {
+    overflow-x: scroll;
+  }
+
+  .table-types table {
+    width: 100%;
   }
 
   .table-responsive table thead tr th {

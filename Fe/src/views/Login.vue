@@ -83,7 +83,7 @@ export default {
     },
     checkLogin(data, status) {
       if (status == 200 && data.code == 200) {
-        this.$store.dispatch("login", data.data.token);
+        localStorage.setItem('token', data.data.token);
         this.$swal({
           icon: "success",
           text: "Đăng nhập thành công!",

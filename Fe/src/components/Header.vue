@@ -45,13 +45,13 @@
                 <b-icon icon="person-circle" class="header-user-icon"></b-icon>
               </em>
             </template>
-            <span v-if="token != ''">
-              <b-dropdown-item href="#">Thông tin tài khoản</b-dropdown-item>
-              <b-dropdown-item @click="signOut">Đăng xuất</b-dropdown-item>
-            </span>
-            <span v-else>
+            <span v-if="token == '' || token == null">
               <b-dropdown-item :href="$baseUrl.url + 'dang-nhap'">Đăng nhập</b-dropdown-item>
               <b-dropdown-item :href="$baseUrl.url + 'dang-ky'">Đăng ký</b-dropdown-item>
+            </span>
+            <span v-else>
+              <b-dropdown-item href="#">Thông tin tài khoản</b-dropdown-item>
+              <b-dropdown-item @click="signOut">Đăng xuất</b-dropdown-item>
             </span>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -79,8 +79,7 @@ export default {
     },
 
     signOut() {
-      this.$store.dispatch('logout');
-      // alert('Đăng xuất thành công!');
+      localStorage.clear();
       this.$swal({
         icon: 'question',
         text: 'Bạn có muốn đăng xuất?',
@@ -95,16 +94,7 @@ export default {
         }
       })
     }
-  }
-  // created() {
-  //   EventService.getMenu()
-  //     .then(response => {
-  //       this.menu = response.data
-  //     })
-  //     .catch(error => {
-  //       console.log('There was an error:' + error.response)
-  //     });
-  // }
+  },
 };
 </script>
 

@@ -40,21 +40,21 @@ export default {
     });
   },
 
-  login: ({ commit }, token) => {
-    commit("setToken", token);
-    // set auth header
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  },
+  // login: ({ commit }, token) => {
+  //   commit("setToken", token);
+   
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  // },
 
-  logout: ({ commit }) => {
-    commit("resetAuth");
-    delete axios.defaults.headers.common["Authorization"];
-  },
+  // logout: ({ commit }) => {
+  //   commit("resetAuth");
+  //   delete axios.defaults.headers.common["Authorization"];
+  // },
 
-  getTokenAdmin: ({ commit }, token) => {
-    commit("setTokenAdmin", token);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  },
+  // getTokenAdmin: ({ commit }, token) => {
+  //   commit("setTokenAdmin", token);
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  // },
 
   getAdminFilmList: ({ commit }) => {
     axios.get(`${API_URL}admin/film/list`).then(response => {
