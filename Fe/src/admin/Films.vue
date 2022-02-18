@@ -485,53 +485,63 @@ export default {
     },
 
     addFilms() {
-      if (this.addFilmsName == "") {
-        return this.msg = "Tên phim không được để trống"};
-      if (this.addFilmsType == "") {
-        return this.msg = "Thể loại phim không được để trống";
-      } if (this.addFilmsSource == null) {
-        return this.msg = "Nguồn phim không được để trống";
-      } if (this.addFilmsTrailer == "") {
-        return this.msg = "Nguồn phim không được để trống";
-      } if (this.addFilmsImage == null) {
-        return this.msg = "Ảnh phim không được để trống";
-      } else {    
-        const fdSource = new FormData();
-        fdSource.append('source', this.addFilmsSource);
-        const fdImage = new FormData();
-        fdImage.append('image', this.addFilmsImage);
+      // if (this.addFilmsName == "") {
+      //   return this.msg = "Tên phim không được để trống"};
+      // if (this.addFilmsType == "") {
+      //   return this.msg = "Thể loại phim không được để trống";
+      // } if (this.addFilmsSource == null) {
+      //   return this.msg = "Nguồn phim không được để trống";
+      // } if (this.addFilmsTrailer == "") {
+      //   return this.msg = "Nguồn phim không được để trống";
+      // } if (this.addFilmsImage == null) {
+      //   return this.msg = "Ảnh phim không được để trống";
+      // } else {    
+      //   const fdSource = new FormData();
+      //   console.log(fdSource);
+      //   fdSource.append('source', this.addFilmsSource);
+      //   console.log(this.addFilmsSource);
+      //   const fdImage = new FormData();
+      //   fdImage.append('image', this.addFilmsImage);
 
-        const films = {
-          name: this.addFilmsName,
-          trailer: this.addFilmsTrailer,
-          actor: this.addFilmsActor,
-          description: this.addFilmsDes,
-          type_id: this.addFilmsType,
-          source: fdSource,   
-          profile: fdImage    
-        };
+      //   const films = {
+      //     name: this.addFilmsName,
+      //     trailer: this.addFilmsTrailer,
+      //     actor: this.addFilmsActor,
+      //     description: this.addFilmsDes,
+      //     type_id: this.addFilmsType,
+      //     source: fdSource,   
+      //     profile: fdImage    
+      //   };
 
-        axios
-          .post(this.API_URL + "admin/film/create", films, {
-            header: {
-                'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then(response => {
-            this.checkAddFilms(response.data, response.status);
-            console.log(response);
-          })
-          .catch(err => {
-            if (err.response.status == 500) {
-              this.$swal({
-                icon: "error",
-                text: "Thêm mới thất bại!",
-                confirmButtonText: "Đóng"
-              });
-              return (this.msg = "");
-            }
-          });
-      }
+      //   console.log(films);
+
+      //   axios
+      //     .post(this.API_URL + "admin/film/create", films, {
+      //       header: {
+      //           'Content-Type': 'multipart/form-data'
+      //       }
+      //     })
+      //     .then(response => {
+      //       this.checkAddFilms(response.data, response.status);
+      //       console.log(response);
+      //     })
+      //     .catch(err => {
+      //       if (err.response.status == 500) {
+      //         this.$swal({
+      //           icon: "error",
+      //           text: "Thêm mới thất bại!",
+      //           confirmButtonText: "Đóng"
+      //         });
+      //         return (this.msg = "");
+      //       }
+      //     });
+      // }
+
+      const fdSource = new FormData();
+      fdSource.append('name', 'source');
+      fdSource.append('file', this.addFilmsSource);
+      console.log(fdSource);
+      
     },
 
     checkAddFilms(data, status) {

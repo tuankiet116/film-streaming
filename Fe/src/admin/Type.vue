@@ -114,31 +114,28 @@
             >
               <b-form-input
                 id="film-name"
+                v-model="updateTypeName"
                 class="mt-1"
                 placeholder="Nhập tên thể loại phim"
-                :value="itemType.name"
                 trim
               ></b-form-input>
             </b-form-group>
 
-            <div v-if="itemType.active">
-              <b-form-checkbox name="enable" value="1" checked="1">
-                <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
-              </b-form-checkbox>
-            </div>
-            <div v-else>
-              <b-form-checkbox name="enable">
-                <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
-              </b-form-checkbox>
-            </div>
- 
+            <!-- <b-form-checkbox name="enable" v-model="updateCheck" @click="enableUpdate">
+              <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
+            </b-form-checkbox> -->
+
+            <b-form-checkbox name="enable" v-model="updateCheck" @click="enableUpdate">
+              <span style="margin-left: 8px"> Kích hoạt/Vô hiệu </span>
+            </b-form-checkbox>
+            
             <template #modal-footer>
               <b-button
                 variant="primary"
                 size="sm"
                 class="float-right"
+                @click="updateType(itemType.id)"
               >
-              <!-- @click="updateTypes" -->
                 Cập nhật
               </b-button>
 
@@ -213,6 +210,8 @@ export default {
       msg: '',
       addTypeName: '',
       enableCheck: '',
+      updateTypeName: '',
+      updateCheck: '',
       show: false,
       showEdit: false,
       items: [],
@@ -348,6 +347,14 @@ export default {
         return this.enableCheck = 0
       }
     },
+    enableUpdate(checkbox) {
+      if (checkbox.checked) {
+        return this.updateCheck = 1
+      }
+      else {
+        return this.updateCheck = 0
+      }
+    },
     addTypes() {
       if (this.addTypeName == "") {
         return this.msg = "Tên thể loại không được để trống";
@@ -362,7 +369,6 @@ export default {
           .post(this.API_URL + "admin/type/create", types)
           .then(response => {
             this.checkAddTypes(response.data, response.status);
-            console.log(response);
           })
           .catch(err => {
             if (err.response.status == 500) {
@@ -394,14 +400,70 @@ export default {
 
     showTypeInfo(id) {
       axios
-      .get(this.API_URL + "admin/type/show/" + id)
-      .then(res => {
-        this.itemType = res.data.data;   
-      })
-      .catch(err => {
-        
-      });
-    }
+        .get(this.API_URL + "admin/type/show/" + id)
+        .then(res => {
+          this.itemType = res.data.data;   
+          console.log(res);
+          if (res.data.data.name != '') {
+            this.updateTypeName = res.data.data.name;
+          }
+          else {
+            this.updateTypeName = '';
+          }
+
+          if (res.data.data.active) {
+            this.updateCheck = res.data.data.active;
+          }
+          else {
+            this.updateCheck = '';
+          }
+        })
+        .catch(err => {
+      });   
+    },
+
+    updateType(id) {
+      if (this.updateTypeName == "") {
+        return this.msg = "Tên thể loại không được để trống";
+      } else {    
+
+        const updateTypes = {
+          name: this.updateTypeName,
+          active: this.updateCheck
+        };
+
+        axios
+          .put(this.API_URL + "admin/type/update/" + id, updateTypes)
+          .then(response => {
+            this.checkUpdateType(response.data, response.status);
+          })
+          .catch(err => {
+            if (err.response.status == 500) {
+              this.$swal({
+                icon: "error",
+                text: "Cập nhật thất bại!",
+                confirmButtonText: "Đóng"
+              });
+              return (this.msg = "");
+            }
+          });
+      }
+    },
+
+    checkUpdateType(data, status) {
+      if (status == 200 && data.code == 200) {
+        this.$swal({
+          icon: "success",
+          text: "Cập nhật thành công!",
+          confirmButtonText: "Đóng"
+        }).then(result => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
+        });
+        return;
+      }
+    },
   }
 };
 </script>
