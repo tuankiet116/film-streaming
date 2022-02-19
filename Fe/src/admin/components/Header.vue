@@ -29,7 +29,7 @@ export default {
     return {};
   },
   created() {
-    if (token == "" || token == null) {
+    if (this.token == "" || this.token == null) {
       this.$router.push({ name: "AdminLogin" });
     }
   },

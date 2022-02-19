@@ -170,7 +170,7 @@ export default {
   mounted() {
     this.$store.dispatch('getNavbar');
     this.$store.dispatch('getList');
-    this.$store.dispatch('getListByType', 1);
+    this.$store.dispatch('getListByType', 4);
   },
   methods: {
     removeAccents(str) {

@@ -121,8 +121,7 @@ let AdminCreateFilm = () => {
             .isNumeric(),
         body('trailer')
             .exists().withMessage(ErrorCode.FIELD_REQUIRE)
-            .isLength({ min: 1 })
-            .escape(),
+            .isLength({ min: 1 }),
         body('actor')
             .exists().withMessage(ErrorCode.FIELD_REQUIRE)
             .isLength({ min: 1 })
@@ -158,8 +157,7 @@ let AdminUpdateFilm = () => {
             }),
         body('trailer')
             .exists()
-            .isLength({ min: 1 })
-            .escape(),
+            .isLength({ min: 1 }),
         body('actor')
             .exists()
             .isLength({ min: 1 })
