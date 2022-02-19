@@ -101,6 +101,24 @@ export default {
     height: 30px;
   }
 
+  .select-type .custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
   @media screen and (min-width: 996px) {
     .navbar-expand-lg .navbar-nav .dropdown-menu {
       right: 0 !important;

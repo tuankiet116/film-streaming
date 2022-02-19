@@ -17,10 +17,10 @@
     </b-sidebar> -->
     <div class="sidebar-content">
       <b-nav vertical pills>
-        <b-nav-item>
+        <!-- <b-nav-item>
           <b-icon icon="bar-chart-line-fill" class="sidebar-icon"></b-icon>
           Thống kê
-        </b-nav-item>
+        </b-nav-item> -->
         <b-nav-item :href="$baseUrl.url + 'admin/films'">
           <b-icon icon="film" class="sidebar-icon"></b-icon>
           Quản lý phim

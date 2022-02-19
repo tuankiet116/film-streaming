@@ -1,6 +1,6 @@
 <template>
   <div id="films">
-    <header-admin></header-admin>
+    <header-admin :token="tokenAdmin"></header-admin>
     <side-bar></side-bar>
 
     <div class="panel">
@@ -51,25 +51,40 @@
             small
             @filtered="onFiltered"
           >
+            <template #cell(type_id)="row">
+              <div v-for="typeId in navbar.data" :key="typeId.id">
+                <p v-if="typeId.id == row.item.type_id">
+                  {{ row.item.type_id }}. {{ typeId.name }}
+                </p>
+              </div>
+            </template>
+
             <template #cell(image)="row">
               <div class="table-img">
                 <img :src="API_URL + 'profiles/' + row.item.image" />
               </div>
             </template>
 
+            
             <template #cell(source)="row">
               {{ row.item.source }}
+              <div v-for="watch in navbar.data" :key="watch.id">
+                <div v-if="watch.id == row.item.type_id">
+                  <a :href="$baseUrl.url + 'phim/' + removeAccents(watch.name) + '-' + watch.id + '/' + row.item.id" target="_blank" class="slick-play" style="text-decoration: none">
+                    Xem phim
+                  </a>
+                </div>
+              </div>
             </template>
 
             <template #cell(actions)="row">
               <button
                 class="panel-show"
-                @click="info(row.item, row.index, $event.target)"
+                @click="showEdit=true; showFilmInfo(row.item.id)"
               >
                 <b-icon
                   icon="pencil-fill"
                   class="panel-show-icon"
-                  @click="handleEditAction()"
                 ></b-icon>
               </button>
               <button
@@ -128,15 +143,10 @@
           </b-row>
 
           <!-- Info modal -->
-          <b-modal
-            :id="infoModal.id"
-            :title="infoModal.title"
-            ok-only
-            @hide="resetInfoModal"
-          >
+          <b-modal v-model="showEdit" title="Cập nhật phim" ok-only>
             <b-form-group class="mb-2" label="Tên phim" label-for="film-name">
               <b-form-input
-                v-model="infoModal.name"
+                v-model="updateFilmsName"
                 id="film-name"
                 class="mt-1"
                 placeholder="Nhập tên phim"
@@ -144,13 +154,13 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="mb-2" label="Thể loại" label-for="film-type">
-              <b-form-input
-                id="film-type"
-                class="mt-1"
-                placeholder="Nhập thể loại"
-                trim
-              ></b-form-input>
+            <b-form-group class="mb-2 select-type" label="Thể loại" label-for="film-type">
+              <b-form-select v-model="updateFilmsType" id="film-type" class="mb-3 custom-select">
+                <b-form-select-option :value="null"> Chọn thể loại phim </b-form-select-option>
+                <b-form-select-option v-for="selectUpdate in navbar.data" :key="selectUpdate.id" :value="selectUpdate.id" @click="chooseType(selectUpdate.id)">
+                  {{ selectUpdate.id }}. {{ selectUpdate.name }}
+                </b-form-select-option>
+              </b-form-select>
             </b-form-group>
 
             <b-form-group
@@ -158,38 +168,65 @@
               label="Nguồn phim"
               label-for="film-source"
             >
-              <b-form-file class="mt-1" plain></b-form-file>
+              <b-form-file v-model="updateFilmsSource" @change="updateFileSource" class="mt-1" plain></b-form-file>
+              <p class="mt-1" style="color: rgb(13, 202, 240)"> {{ updateFilmsSource }} </p>
             </b-form-group>
 
             <b-form-group class="mb-2" label="Diễn viên" label-for="film-actor">
               <b-form-input
-                id="film-source"
+                id="film-actor"
                 class="mt-1"
                 placeholder="Nhập tên diễn viên"
+                v-model="updateFilmsActor"
                 trim
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="mb-2" label="Trailer" label-for="film-actor">
+            <b-form-group class="mb-2" label="Trailer" label-for="film-trailer">
               <b-form-input
                 id="film-trailer"
                 class="mt-1"
                 placeholder="Nhúng trailer"
+                v-model="updateFilmsTrailer"
                 trim
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="mb-2" label="Ảnh" label-for="film-actor">
-              <b-form-file class="mt-1" plain></b-form-file>
+            <b-form-group class="mb-2" label="Ảnh" label-for="film-image">
+              <b-form-file v-model="updateFilmsImage" @change="updateFileImage" class="mt-1" plain></b-form-file>
+              <p class="mt-1" style="color: rgb(13, 202, 240)"> {{ updateFilmsImage }} </p>
             </b-form-group>
 
-            <b-form-group class="mb-2" label="Mô tả" label-for="film-actor">
+            <b-form-group class="mb-2" label="Mô tả" label-for="film-des">
               <b-form-textarea
                 id="textarea-default"
                 class="mt-1"
                 placeholder="Default textarea"
+                v-model="updateFilmsDes"
               ></b-form-textarea>
             </b-form-group>
+
+            <p v-if="msgUpdate" style="color: rgb(212, 39, 47);"> {{ msgUpdate }} </p>
+
+            <template #modal-footer>
+              <b-button
+                variant="primary"
+                size="sm"
+                class="float-right"
+                @click="updateFilms(itemFilm.id)"
+              >
+                Cập nhật
+              </b-button>
+
+              <b-button
+                variant="danger"
+                size="sm"
+                class="float-right"
+                @click="showEdit = false"
+              >
+                Hủy
+              </b-button>
+            </template>
           </b-modal>
 
           <!-- Add modal -->
@@ -204,14 +241,13 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="mb-2" label="Thể loại" label-for="film-type">
-              <b-form-input
-                id="film-type"
-                class="mt-1"
-                placeholder="Nhập thể loại"
-                v-model="addFilmsType"
-                trim
-              ></b-form-input>
+            <b-form-group class="mb-2 select-type" label="Thể loại" label-for="film-type">
+              <b-form-select v-model="addFilmsType" id="film-type" class="mb-3 custom-select">
+                <b-form-select-option :value="null"> Chọn thể loại phim </b-form-select-option>
+                <b-form-select-option v-for="selectType in navbar.data" :key="selectType.id" :value="selectType.id" @click="chooseType(selectType.id)">
+                  {{ selectType.id }}. {{ selectType.name }}
+                </b-form-select-option>
+              </b-form-select>
             </b-form-group>
 
             <b-form-group
@@ -297,20 +333,35 @@ export default {
   data() {
     return {
       msg: '',
+      msgUpdate: '',
       addFilmsName: '',
-      addFilmsType: '',
+      addFilmsType: null,
       addFilmsSource: null,
       addFilmsActor: '',
       addFilmsTrailer: '',
       addFilmsImage: null,
       addFilmsDes: '',
+      updateFilmsName: '',
+      updateFilmsType: null,
+      updateFilmsSource: null,
+      updateFilmsActor: '',
+      updateFilmsTrailer: '',
+      updateFilmsImage: null,
+      updateFilmsDes: '',
       API_URL,
       show: false,
+      showEdit: false,
       items: [],
+      itemFilm: [],
       fields: [
         {
           key: "name",
           label: "Tên phim",
+          sortDirection: "desc"
+        },
+        {
+          key: "type_id",
+          label: "Thể loại",
           sortDirection: "desc"
         },
         {
@@ -401,6 +452,10 @@ export default {
 
     adminFilmList() {
       return this.$store.state.adminFilmList;
+    },
+
+    navbar() {
+      return this.$store.state.navbar;
     }
   },
   created() {
@@ -425,6 +480,9 @@ export default {
         location.reload();
       });
   },
+  mounted() {
+    this.$store.dispatch('getNavbar');
+  },
   methods: {
     info(item, index, button) {
       this.infoModal.title = `Thông tin phim: ${index}`;
@@ -446,6 +504,12 @@ export default {
       } else {
         (this.paddingLeft = "20.4%"), (this.count = !this.count);
       }
+    },
+    removeAccents(str) {
+      return str.normalize('NFD')
+             .replace(/[\u0300-\u036f]/g, '')
+             .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+             .replace(/\s+/g, '-').toLowerCase();
     },
     deleteRow(id) {
       this.$swal({
@@ -474,14 +538,24 @@ export default {
       });
     },
 
+    chooseType(id) {
+      return this.addFilmsType = id;
+    },
+
     onFileSource(event) {
         this.addFilmsSource = event.target.files[0];
-        console.log(event);
     },
 
     onFileImage(event) {
         this.addFilmsImage = event.target.files[0];
-        console.log(event);
+    },
+
+    updateFileSource(event) {
+      this.updateFilmsSource = event.target.files[0];
+    },
+
+    updateFileImage(event) {
+      this.updateFilmsImage = event.target.files[0];
     },
 
     addFilms() {
@@ -492,7 +566,7 @@ export default {
       } if (this.addFilmsSource == null) {
         return this.msg = "Nguồn phim không được để trống";
       } if (this.addFilmsTrailer == "") {
-        return this.msg = "Nguồn phim không được để trống";
+        return this.msg = "Trailer không được để trống";
       } if (this.addFilmsImage == null) {
         return this.msg = "Ảnh phim không được để trống";
       } else {    
@@ -540,7 +614,121 @@ export default {
         });
         return;
       }
-    }
+    },
+
+    showFilmInfo(id) {
+      axios
+        .get(this.API_URL + "admin/film/show/" + id)
+        .then(res => {
+          this.itemFilm = res.data.data;   
+          console.log(res);
+          if (res.data.data.name != '') {
+            this.updateFilmsName = res.data.data.name;
+          }
+          else {
+            this.updateFilmsName = '';
+          }
+
+          if (res.data.data.trailer != '') {
+            this.updateFilmsTrailer = res.data.data.trailer;
+          }
+          else {
+            this.updateFilmsTrailer = '';
+          }
+
+          if (res.data.data.actor != '') {
+            this.updateFilmsActor = res.data.data.actor;
+          }
+          else {
+            this.updateFilmsActor = '';
+          }
+
+          if (res.data.data.description != '') {
+            this.updateFilmsDes = res.data.data.description;
+          }
+          else {
+            this.updateFilmsDes = '';
+          }
+
+          if (res.data.data.type_id) {
+            this.updateFilmsType = res.data.data.type_id;
+          }
+          else {
+            this.updateFilmsType = '';
+          }
+
+          if (res.data.data.source) {
+            this.updateFilmsSource = res.data.data.source;
+          }
+          else {
+            this.updateFilmsSource = '';
+          }
+
+          if (res.data.data.image) {
+            this.updateFilmsImage = res.data.data.image;
+          }
+          else {
+            this.updateFilmsImage = '';
+          }
+        })
+        .catch(err => {
+      });   
+    },
+
+    updateFilms(id) {
+      if (this.updateFilmsName == "") {
+        return this.msg = "Tên phim không được để trống";
+      } if (this.updateFilmsType == "") {
+        return this.msg = "Thể loại phim không được để trống";
+      } if (this.updateFilmsSource == null) {
+        return this.msg = "Nguồn phim không được để trống";
+      } if (this.updateFilmsTrailer == "") {
+        return this.msg = "Trailer không được để trống";
+      } if (this.updateFilmsImage == null) {
+        return this.msg = "Ảnh phim không được để trống";
+      } else {    
+
+        const updateFormData = new FormData();
+        updateFormData.append('name', this.updateFilmsName);
+        updateFormData.append('trailer', this.updateFilmsTrailer);
+        updateFormData.append('actor', this.updateFilmsActor);
+        updateFormData.append('description', this.updateFilmsDes);
+        updateFormData.append('type_id', this.updateFilmsType);
+        updateFormData.append('source', this.updateFilmsSource);   
+        updateFormData.append('profile', this.updateFilmsImage);
+
+        axios
+          .post(this.API_URL + "admin/film/update/" + id, updateFormData)
+          .then(response => {
+            this.checkUpdateType(response.data, response.status);
+          })
+          .catch(err => {
+            if (err.response.status == 500) {
+              this.$swal({
+                icon: "error",
+                text: "Cập nhật thất bại!",
+                confirmButtonText: "Đóng"
+              });
+              return (this.msg = "");
+            }
+          });
+      }
+    },
+
+    checkUpdateType(data, status) {
+      if (status == 200 && data.code == 200) {
+        this.$swal({
+          icon: "success",
+          text: "Cập nhật thành công!",
+          confirmButtonText: "Đóng"
+        }).then(result => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
+        });
+        return;
+      }
+    },
   }
 };
 </script>
@@ -630,4 +818,5 @@ export default {
   overflow-y: hidden;
   text-align: justify;
 }
+
 </style>

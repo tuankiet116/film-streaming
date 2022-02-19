@@ -90,7 +90,7 @@ export default {
         if (result.isConfirmed) {
           location.reload();
         } else if (result.isDenied) {
-         
+
         }
       })
     }

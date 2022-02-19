@@ -1,6 +1,6 @@
 <template>
   <div id="type">
-    <header-admin></header-admin>
+    <header-admin :token="tokenAdmin"></header-admin>
     <side-bar></side-bar>
 
     <div class="panel">

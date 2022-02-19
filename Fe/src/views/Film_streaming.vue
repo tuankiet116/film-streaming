@@ -6,7 +6,7 @@
         class="film-detail-stream-content"
         controls
         preload="auto"
-        poster="../assets/images/spider-man-nwh-2.jpg">
+        :poster="API_URL + 'profiles/' + img">
         <source :src="API_URL + 'films/stream/' + source" type="video/mp4" />
       </video>
     </div>
