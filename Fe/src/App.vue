@@ -55,8 +55,8 @@ export default {
   .table-responsive {
     overflow-x: scroll;
     overflow-y: auto;
-    max-height: 410px;
-    min-height: 410px;
+    max-height: 25.6rem;
+    min-height: 25.6rem;
   }
 
   .table-responsive table {
