@@ -51,15 +51,16 @@
       <div class="movie">
         <component 
           :is="cmp"
+          :name="detail.data.name"
           :source="detail.data.id"
           :img="detail.data.image">
         </component>
       </div>
 
-      <div v-if="comments">
+      <!-- <div v-if="comments">
         <div class="fb-comments" id="show" data-href="http://localhost:8080/" data-width="500" data-numposts="5"></div>
       </div>
-      <div v-else></div>
+      <div v-else></div> -->
   
       <div class="film-detail-same-type">
         <p> Cùng thể loại </p>
@@ -104,7 +105,7 @@ export default {
       },
       cmp: '',
       comments: false,
-      tokenUser: localStorage.getItem('token')
+      tokenUser: ''
     };
   },
   computed: {
@@ -125,6 +126,7 @@ export default {
     this.$store.dispatch('getNavbar');
     this.$store.dispatch("getDetail", this.filmDetail);
     this.$store.dispatch("getListByType", this.id);
+    this.tokenUser = localStorage.getItem('token');
   },
   methods: {
     uploadStream(item) {

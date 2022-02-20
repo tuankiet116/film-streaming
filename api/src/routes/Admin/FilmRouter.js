@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const cors = require('../../configs/cors.admin')
+const cors = require('cors')
 
 const AdminMiddleWare = require('../../middleware/admin')
 const AdminValidator = require('../../validator/Admin/AdminValidator')
 const FileValidator = require('../../validator/Admin/FileValidator')
 const FilmController = require('../../controllers/Admin/FilmController')
 
-router.use(cors)
+router.use(cors())
 
 router.get('/list',
     AdminMiddleWare.checkAuthIsAdmin,

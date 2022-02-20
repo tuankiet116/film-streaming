@@ -8,37 +8,37 @@
         </h1>
         <span v-else></span>
       </span>
-      <b-container>
-        <b-row>
-          <b-col
-            lg="3"
-            md="4"
-            sm="6"
-            xs="12"
-            v-for="listItem in listByType.data.rows"
-            :key="listItem.id"
-          >
-            <div class="list-items">
-              <!-- <router-link :to="{ name: 'Detail', params: { title: title, detail: listItem.id}}">
-                <div class="list-items-img">
-                  <img :src="listItem.image" alt="film image" />
-                </div>
-                <div class="list-items-info">
-                  <p class="list-items-title">{{ listItem.name }}</p>
-                </div>
-              </router-link> -->
-              <a :href="$baseUrl.url + 'phim/' + title + '/' + listItem.id">
-                <div class="list-items-img">
-                  <img :src=" API_URL + 'profiles/' + listItem.image" alt="film image" />
-                </div>
-                <div class="list-items-info">
-                  <p class="list-items-title">{{ listItem.name }}</p>
-                </div>
-              </a>
-            </div>
-          </b-col>
-        </b-row>
-      </b-container> 
+      <div v-if="listByType.data.count > 0">
+        <b-container>
+          <b-row>
+            <b-col
+              lg="3"
+              md="4"
+              sm="6"
+              xs="12"
+              v-for="listItem in listByType.data.rows"
+              :key="listItem.id"
+            >
+              <div class="list-items">
+                <a :href="$baseUrl.url + 'phim/' + title + '/' + listItem.id">
+                  <div class="list-items-img">
+                    <img :src=" API_URL + 'profiles/' + listItem.image" alt="film image" />
+                  </div>
+                  <div class="list-items-info">
+                    <p class="list-items-title">{{ listItem.name }}</p>
+                  </div>
+                </a>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container> 
+      </div>
+      <div v-else>
+        <div class="list-empty">
+          <b-icon icon="emoji-dizzy-fill" class="list-empty-icon"></b-icon>
+          <p> Chưa có phim trong danh sách </p>
+        </div>  
+      </div>  
     </div>
 
     <footer-menu></footer-menu>
@@ -151,5 +151,25 @@ export default {
   text-shadow: 5px 5px 4px rgb(30, 30, 30);
   overflow-y: hidden;
   height: 30px;
+}
+
+#list .list-container .list-empty {
+  padding: 60px;
+}
+
+#list .list-container .list-empty .list-empty-icon {
+  font-size: 50px;
+  color: white;
+  position: relative;
+  left: 50%;
+}
+
+#list .list-container .list-empty p {
+  font-family: "Roboto", Arial;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
 }
 </style>

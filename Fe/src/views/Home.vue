@@ -28,37 +28,39 @@
     <!------ Film list ------>
 
     <div v-for='lists in list.data' :key='lists.id' class="film-list">
-      <div class="film-list-name"> 
-        <span v-if="lists.id == 1">
-          <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
-        </span>
-        <span v-else-if="lists.id == 2">
-          <b-icon icon="cast" class="film-list-icon"></b-icon>
-        </span>
-        <span v-else>
-          <b-icon icon="collection-play-fill" class="film-list-icon"></b-icon>
-        </span>
-        {{ lists.name }}
-      </div>
-      <div class="film-list-content">
-        <VueSlickCarousel v-bind="listFilms">
-          <div v-for='listFilm in lists.films.rows' :key='listFilm.id' class="film-list-items">
-            <span v-for='listType in navbar.data' :key='listType.id'>
-              <span v-if='listFilm.type_id == listType.id'>
-                <a :href="$baseUrl.url + 'phim/' + removeAccents(listType.name) + '-' + listType.id + '/' + listFilm.id" target="_self">
-                  <div class="film-list-img">
-                  <img :src="API_URL + 'profiles/' + listFilm.image">
-                  </div>
-                  <div class="film-list-info">
-                    <p class="film-list-title"> {{ listFilm.name }} </p>
-                    <!-- <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p> -->
-                  </div>
-                </a>
+      <div v-if="lists.films.count > 0">
+        <div class="film-list-name"> 
+          <span v-if="lists.id == 1">
+            <b-icon icon="play-circle-fill" class="film-list-icon"></b-icon>
+          </span>
+          <span v-else-if="lists.id == 2">
+            <b-icon icon="cast" class="film-list-icon"></b-icon>
+          </span>
+          <span v-else>
+            <b-icon icon="collection-play-fill" class="film-list-icon"></b-icon>
+          </span>
+          {{ lists.name }}
+        </div>
+        <div class="film-list-content">
+          <VueSlickCarousel v-bind="listFilms">
+            <div v-for='listFilm in lists.films.rows' :key='listFilm.id' class="film-list-items">
+              <span v-for='listType in navbar.data' :key='listType.id'>
+                <span v-if='listFilm.type_id == listType.id'>
+                  <a :href="$baseUrl.url + 'phim/' + removeAccents(listType.name) + '-' + listType.id + '/' + listFilm.id" target="_self">
+                    <div class="film-list-img">
+                    <img :src="API_URL + 'profiles/' + listFilm.image">
+                    </div>
+                    <div class="film-list-info">
+                      <p class="film-list-title"> {{ listFilm.name }} </p>
+                      <!-- <p class="film-list-eng"> {{ listItems.itemTitleEng }} </p> -->
+                    </div>
+                  </a>
+                </span>
+                <span v-else></span>
               </span>
-              <span v-else></span>
-            </span>
-          </div>
-        </VueSlickCarousel>
+            </div>
+          </VueSlickCarousel>
+        </div>
       </div>
     </div>
 
@@ -67,25 +69,27 @@
     <b-container class="new-film-list-content" fluid>
       <b-row>
         <b-col lg="4" md="6" sm="12" v-for='newFilm in list.data' :key='newFilm.id'>
-          <div class="new-film-list">
-            <p class="new-film-name"> {{ newFilm.name }} </p>
+          <div v-if="newFilm.films.count > 0">
+            <div class="new-film-list">
+              <p class="new-film-name"> {{ newFilm.name }} </p>
 
-            <span v-for='newFilmItem in newFilm.films.rows' :key='newFilmItem.id'>
-              <span v-for='newFilmType in navbar.data' :key='newFilmType.id'>
-                <span v-if='newFilmItem.type_id == newFilmType.id'>
-                  <a :href="$baseUrl.url + 'phim/' + removeAccents(newFilmType.name) + '-' + newFilmType.id + '/' + newFilmItem.id" target="_self">
-                    <div class="new-film-items"> 
-                      <div class="new-film-img">
-                        <img :src="API_URL + 'profiles/' + newFilmItem.image" alt="new film image">
+              <span v-for='newFilmItem in newFilm.films.rows' :key='newFilmItem.id'>
+                <span v-for='newFilmType in navbar.data' :key='newFilmType.id'>
+                  <span v-if='newFilmItem.type_id == newFilmType.id'>
+                    <a :href="$baseUrl.url + 'phim/' + removeAccents(newFilmType.name) + '-' + newFilmType.id + '/' + newFilmItem.id" target="_self">
+                      <div class="new-film-items"> 
+                        <div class="new-film-img">
+                          <img :src="API_URL + 'profiles/' + newFilmItem.image" alt="new film image">
+                        </div>
+                        <div class="new-film-info">
+                          <p class="new-film-title"> {{ newFilmItem.name }} </p>
+                        </div>
                       </div>
-                      <div class="new-film-info">
-                        <p class="new-film-title"> {{ newFilmItem.name }} </p>
-                      </div>
-                    </div>
-                  </a>
+                    </a>
+                  </span>
                 </span>
               </span>
-            </span>
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -170,7 +174,7 @@ export default {
   mounted() {
     this.$store.dispatch('getNavbar');
     this.$store.dispatch('getList');
-    this.$store.dispatch('getListByType', 4);
+    this.$store.dispatch('getListByType', 1);
   },
   methods: {
     removeAccents(str) {

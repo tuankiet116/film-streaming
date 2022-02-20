@@ -60,7 +60,7 @@ export default {
   }
 
   .table-responsive table {
-    width: 180%;
+    width: 100%;
   }
 
   .table-types {

@@ -750,7 +750,7 @@ export default {
 #films .panel .panel-content {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 82.3vh;
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px 10px 3px rgba(30, 30, 30, 0.25);
