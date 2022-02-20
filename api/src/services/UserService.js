@@ -13,12 +13,11 @@ module.exports.login = async (userEmail, password, rememberMe = false) => {
                 email: userEmail
             }
         }).then(async (element) => {
-            let result = await bcrypt.compare(password, element.password)
-
             if (element == null || !result) {
                 throw new Error(ERROR_TYPE.AUTHENTICATION_FAILED)
             }
-
+            let result = await bcrypt.compare(password, element.password)
+            
             let payload = {
                 userID: element.id,
                 userEmail: element.email
