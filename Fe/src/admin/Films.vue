@@ -223,6 +223,11 @@
             <p v-if="msgUpdate" style="color: rgb(212, 39, 47);"> {{ msgUpdate }} </p>
 
             <template #modal-footer>
+              <span v-if="loading">
+                <b-spinner style="position: absolute; margin-left: -40px; margin-top: -4.5px"></b-spinner>
+                <p style="margin-bottom: 0"> Xin vui lòng đợi </p>
+              </span>
+
               <b-button
                 variant="primary"
                 size="sm"
@@ -308,6 +313,11 @@
             <p v-if="msg" style="color: rgb(212, 39, 47);"> {{ msg }} </p>
 
             <template #modal-footer>
+              <span v-if="loading">
+                <b-spinner style="position: absolute; margin-left: -40px; margin-top: -4.5px"></b-spinner>
+                <p style="margin-bottom: 0"> Xin vui lòng đợi </p>
+              </span>
+                         
               <b-button
                 variant="primary"
                 size="sm"
@@ -346,6 +356,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       msg: '',
       msgUpdate: '',
       addFilmsName: '',
@@ -584,6 +595,7 @@ export default {
       } if (this.addFilmsImage == null) {
         return this.msg = "Ảnh phim không được để trống";
       } else {    
+        this.loading = true;
         const formData = new FormData();
         formData.append('name', this.addFilmsName);
         formData.append('trailer', this.addFilmsTrailer);
@@ -599,10 +611,11 @@ export default {
           }
         })
         .then(response => {
+          this.loading = false;
           this.checkAddFilms(response.data, response.status);
-          console.log(response);
         })
         .catch(err => {
+          this.loading = false;
           if (err.response.status == 500) {
             this.$swal({
               icon: "error",
@@ -701,7 +714,7 @@ export default {
       } if (this.updateFilmsImage == null) {
         return this.msg = "Ảnh phim không được để trống";
       } else {    
-
+        this.loading = true;
         const updateFormData = new FormData();
         updateFormData.append('name', this.updateFilmsName);
         updateFormData.append('trailer', this.updateFilmsTrailer);
@@ -714,9 +727,11 @@ export default {
         axios
           .post(this.API_URL + "admin/film/update/" + id, updateFormData)
           .then(response => {
+            this.loading = false;
             this.checkUpdateType(response.data, response.status);
           })
           .catch(err => {
+            this.loading = false;
             if (err.response.status == 500) {
               this.$swal({
                 icon: "error",

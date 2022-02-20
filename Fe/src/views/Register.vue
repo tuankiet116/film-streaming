@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { API_URL } from "../constant/api";
 
 export default {
   data () {
@@ -32,7 +33,7 @@ export default {
       password: '',       
       password_repeat: '',
       msg: '',
-      apiUrl: 'http://localhost:3333/'
+      API_URL: API_URL
     }
   },
   methods: {
@@ -45,19 +46,10 @@ export default {
           email: this.email,
           password: this.password
         }
-        axios.post(this.apiUrl + 'auth/register', register)
+        axios.post(this.API_URL + 'auth/register', register)
         .then(response => {
           this.checkRegister(response.data, response.status);
         }).catch(err => {
-          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 1) {
-          //   return this.msg = "Email không đúng định dạng"
-          // }
-          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 5) {
-          //   return this.msg = "Email đã tồn tại"
-          // }
-          // if (err.response.status == 500 && err.response.data.data.errors.msg.id == 3) {
-          //   return this.msg = "Mật khẩu không đúng định dạng"
-          // }
           if (err.response.status == 500) {
             this.$swal({
               icon: "error",

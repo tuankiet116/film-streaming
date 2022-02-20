@@ -171,6 +171,11 @@
             </b-form-checkbox>
 
             <template #modal-footer>
+              <span v-if="loading">
+                <b-spinner style="position: absolute; margin-left: -40px; margin-top: -4.5px"></b-spinner>
+                <p style="margin-bottom: 0"> Xin vui lòng đợi </p>
+              </span>
+
               <b-button
                 variant="primary"
                 size="sm"
@@ -206,6 +211,7 @@ export default {
   components: { HeaderAdmin, SideBar },
   data() {
     return {
+      loading: false,
       API_URL,
       msg: '',
       addTypeName: '',
@@ -359,7 +365,7 @@ export default {
       if (this.addTypeName == "") {
         return this.msg = "Tên thể loại không được để trống";
       } else {    
-
+        this.loading = true;
         const types = {
           name: this.addTypeName,
           active: this.enableCheck
@@ -368,9 +374,11 @@ export default {
         axios
           .post(this.API_URL + "admin/type/create", types)
           .then(response => {
+            this.loading = false;
             this.checkAddTypes(response.data, response.status);
           })
           .catch(err => {
+            this.loading = false;
             if (err.response.status == 500) {
               this.$swal({
                 icon: "error",
@@ -426,7 +434,7 @@ export default {
       if (this.updateTypeName == "") {
         return this.msg = "Tên thể loại không được để trống";
       } else {    
-
+        this.loading = true;
         const updateTypes = {
           name: this.updateTypeName,
           active: this.updateCheck
@@ -435,9 +443,11 @@ export default {
         axios
           .put(this.API_URL + "admin/type/update/" + id, updateTypes)
           .then(response => {
+            this.loading = false;
             this.checkUpdateType(response.data, response.status);
           })
           .catch(err => {
+            this.loading = false;
             if (err.response.status == 500) {
               this.$swal({
                 icon: "error",
