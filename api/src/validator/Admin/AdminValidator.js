@@ -127,7 +127,6 @@ let AdminCreateFilm = () => {
             .isLength({ min: 1 })
             .escape(),
         body('description')
-            .escape()
     ]
 }
 
@@ -163,7 +162,6 @@ let AdminUpdateFilm = () => {
             .isLength({ min: 1 })
             .escape(),
         body('description')
-            .escape()
     ]
 }
 
