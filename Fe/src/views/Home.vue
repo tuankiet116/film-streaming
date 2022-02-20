@@ -157,7 +157,7 @@ export default {
           },
         ]
       },
-      tokenUser: localStorage.getItem('token')
+      tokenUser: ''
     }
   },
   computed: {
@@ -175,6 +175,7 @@ export default {
     this.$store.dispatch('getNavbar');
     this.$store.dispatch('getList');
     this.$store.dispatch('getListByType', 1);
+    this.tokenUser = localStorage.getItem('token');
   },
   methods: {
     removeAccents(str) {

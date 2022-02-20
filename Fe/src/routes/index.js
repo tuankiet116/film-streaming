@@ -105,24 +105,24 @@ const routes = [
       ]
     }
   },
-  // {
-  //   path: "/admin",
-  //   name: "Admin",
-  //   component: DashBoard,
-  //   meta: {
-  //     title: "Admin | Xem phim trực tuyến",
-  //     metaTags: [
-  //       {
-  //         name: "description",
-  //         content: "Hệ thống admin trang xem phim trực tuyến"
-  //       },
-  //       {
-  //         property: "og:description",
-  //         content: "Hệ thống admin trang xem phim trực tuyến"
-  //       }
-  //     ]
-  //   }
-  // },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminFilms,
+    meta: {
+      title: "Admin | Xem phim trực tuyến",
+      metaTags: [
+        {
+          name: "description",
+          content: "Hệ thống admin trang xem phim trực tuyến"
+        },
+        {
+          property: "og:description",
+          content: "Hệ thống admin trang xem phim trực tuyến"
+        }
+      ]
+    }
+  },
   {
     path: "/admin/films",
     name: "AdminFilms",

@@ -1,33 +1,22 @@
 <template>
   <div id="sidebar">
-    <!-- <b-button v-b-toggle.sidebar-no-header class="toggle-slider" @click="changePanel">Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
-      <template #default="{ hide }">
-        <div class="p-3">
-          <nav class="mb-3">
-            <b-nav vertical>
-              <b-nav-item active @click="hide">Active</b-nav-item>
-              <b-nav-item href="#link-1" @click="hide">Link</b-nav-item>
-              <b-nav-item href="#link-2" @click="hide">Another Link</b-nav-item>
-            </b-nav>
-          </nav>
-          <b-button variant="primary" block @click="hide">Close Sidebar</b-button>
-        </div>
-      </template>
-    </b-sidebar> -->
     <div class="sidebar-content">
       <b-nav vertical pills>
         <!-- <b-nav-item>
           <b-icon icon="bar-chart-line-fill" class="sidebar-icon"></b-icon>
           Thống kê
         </b-nav-item> -->
-        <b-nav-item :href="$baseUrl.url + 'admin/films'">
-          <b-icon icon="film" class="sidebar-icon"></b-icon>
-          Quản lý phim
+        <b-nav-item>
+          <router-link :to="{ name: 'AdminFilms'}" class="router-color">
+            <b-icon icon="film" class="sidebar-icon"></b-icon>
+            Quản lý phim
+          </router-link>
         </b-nav-item>
-        <b-nav-item :href="$baseUrl.url + 'admin/type'">
-          <b-icon icon="tags-fill" class="sidebar-icon"></b-icon>
-          Quản lý thể loại
+        <b-nav-item>
+          <router-link :to="{ name: 'AdminFilmType' }" class="router-color">
+            <b-icon icon="tags-fill" class="sidebar-icon"></b-icon>
+            Quản lý thể loại
+          </router-link>
         </b-nav-item>
       </b-nav>
     </div>
@@ -85,5 +74,10 @@ export default {
 
   #sidebar .sidebar-content .nav-pills .nav-item .nav-link .sidebar-icon {
     margin-right: 5px;
+  }
+
+  #sidebar .sidebar-content .router-color {
+    color: white;
+    text-decoration: none;
   }
 </style>

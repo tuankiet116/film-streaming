@@ -56,7 +56,7 @@ export default {
     return {
       API_URL: API_URL,
       components: { HeaderNavbar, FooterMenu },
-      tokenUser: localStorage.getItem('token')
+      tokenUser: ''
     };
   },
   created() {
@@ -81,6 +81,7 @@ export default {
     this.$store.dispatch('getNavbar');
     this.$store.dispatch('getList');
     this.$store.dispatch("getListByType", this.id);
+    this.tokenUser = localStorage.getItem('token');
   },
   methods: {
     

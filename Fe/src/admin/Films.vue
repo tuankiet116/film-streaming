@@ -36,6 +36,7 @@
 
           <!-- Main table element -->
           <b-table
+            fixed
             responsive
             :items="items"
             :fields="fields"
@@ -45,12 +46,21 @@
             :filter-included-fields="filterOn"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            stacked="md"
+            :sort-direction="sortDirection"       
             show-empty
-            small
             @filtered="onFiltered"
           >
+            <template v-slot:table-colgroup>
+              <col style="width: 10rem">
+              <col style="width: 10rem">
+              <col style="width: 10rem">
+              <col style="width: 10rem">
+              <col style="width: 21rem">
+              <col style="width: 10rem">
+              <col style="width: 20rem">
+              <col style="width: 10rem">
+              <col style="width: 7rem">
+            </template>
             <template #cell(type_id)="row">
               <div v-for="typeId in navbar.data" :key="typeId.id">
                 <p v-if="typeId.id == row.item.type_id">
@@ -75,6 +85,10 @@
                   </a>
                 </div>
               </div>
+            </template>
+
+            <template #cell(trailer)="row">   
+              <div style="height: 30px; overflow-x: hidden">{{ row.item.trailer }}</div>
             </template>
 
             <template #cell(actions)="row">
